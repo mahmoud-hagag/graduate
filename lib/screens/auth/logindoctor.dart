@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/text_field.dart';
+import 'package:graduate/constants/colors.dart';
 
 // ignore: must_be_immutable
 class LoginDoctor extends StatefulWidget {
@@ -64,7 +65,7 @@ class _LoginDoctorState extends State<LoginDoctor> {
                         height: 20,
                       ),
                       const Text(
-                        'Email',
+                        'User name',
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -76,7 +77,7 @@ class _LoginDoctorState extends State<LoginDoctor> {
                       CustomTextField(
                         obscureText: false,
                         controller: email,
-                        label: 'Enter your Email address',
+                        label: 'Enter your user name',
                         icon: Icons.email_rounded,
                         keyType: TextInputType.emailAddress,
                         validator: (p0) {
@@ -164,8 +165,8 @@ class _LoginDoctorState extends State<LoginDoctor> {
                         width: double.infinity,
                         child: CustomButton(
                           text: 'Login',
-                          color1: const Color.fromARGB(255, 186, 100, 2),
-                          color2: const Color.fromARGB(255, 40, 24, 4),
+                          color1: color1Button,
+                          color2: color2Button,
                           onTab: () {},
                         ),
                       ),

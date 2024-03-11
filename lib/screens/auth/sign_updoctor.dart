@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate/components/custom_button.dart';
+import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/text_field.dart';
+import 'package:graduate/constants/colors.dart';
 
 // ignore: must_be_immutable
 class SignUPDoctor extends StatefulWidget {
@@ -12,20 +14,20 @@ class SignUPDoctor extends StatefulWidget {
 }
 
 class _SignUPDoctorState extends State<SignUPDoctor> {
+  late List<DropdownMenuEntry<dynamic>> dropdownMenuEntries;
   TextEditingController username = TextEditingController();
-
-  TextEditingController email = TextEditingController();
-
   TextEditingController password = TextEditingController();
-
-  TextEditingController password1 = TextEditingController();
+  TextEditingController fName = TextEditingController();
+  TextEditingController lName = TextEditingController();
+  TextEditingController phoneNumber = TextEditingController();
+  TextEditingController gender = TextEditingController();
 
   GlobalKey<FormState> formState = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: backGround,
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: ListView(children: [
@@ -34,23 +36,28 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const SizedBox(width: double.infinity, child: Logo()),
                 const SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
-                SizedBox(width: double.infinity, child: Container()),
+                const Text(
+                  'Sign Up as Doctor',
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
                 const SizedBox(
                   height: 10,
                 ),
                 const Text(
-                  'Sign Up',
-                  style: TextStyle(fontSize: 34, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
                   'User Name',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -66,32 +73,19 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
                   controller: username,
                   label: 'Enter your User Name',
                   icon: Icons.person_rounded,
-                  keyType: TextInputType.name, obscureText: false,
-                ),
-                const Text(
-                  'Email',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  keyType: TextInputType.name,
+                  obscureText: false,
                 ),
                 const SizedBox(
                   height: 10,
                 ),
-                CustomTextField(
-                  obscureText: false,
-                  validator: (p0) {
-                    if (p0 == "") {
-                      return "can't to be empty";
-                    } else {
-                      return null;
-                    }
-                  },
-                  controller: email,
-                  label: 'Enter your Email address',
-                  icon: Icons.email_rounded,
-                  keyType: TextInputType.emailAddress,
-                ),
                 const Text(
                   'Password',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 const SizedBox(
                   height: 10,
@@ -110,12 +104,117 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
                   icon: CupertinoIcons.eye_slash_fill,
                   keyType: TextInputType.visiblePassword,
                 ),
-                const Text(
-                  'Confirm Password',
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 15.0),
+                      child: DropdownMenu(
+                          inputDecorationTheme: const InputDecorationTheme(
+                            fillColor: Colors.transparent,
+                            filled: false,
+                            enabledBorder: InputBorder.none,
+                          ),
+                          menuStyle: const MenuStyle(
+                            backgroundColor: MaterialStatePropertyAll(
+                                Color.fromARGB(255, 120, 66, 3)),
+                            elevation: MaterialStatePropertyAll(6),
+                          ),
+                          hintText: "Gender",
+                          onSelected: (value) {
+                            setState(() => gender.text = value.toString());
+                          },
+                          textStyle: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          dropdownMenuEntries: dropdownMenuEntries = [
+                            const DropdownMenuEntry(
+                                value: 'male', label: "Male"),
+                            const DropdownMenuEntry(
+                                value: 'female', label: "Female"),
+                          ]),
+                    ),
+                  ],
                 ),
                 const SizedBox(
-                  height: 10,
+                  height: 5,
+                ),
+                const Row(
+                  children: [
+                    Text(
+                      'First Name',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 120),
+                      child: Text(
+                        'Last Name',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextField(
+                        controller: fName,
+                        validator: (value) {
+                          if (value!.isEmpty || value.trim() == '') {
+                            return "Field can't be empty";
+                          }
+                          return null;
+                        },
+                        label: 'Here...',
+                        icon: null,
+                        obscureText: false,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 30,
+                    ),
+                    Expanded(
+                      child: CustomTextField(
+                        controller: lName,
+                        validator: (value) {
+                          if (value!.isEmpty || value.trim() == '') {
+                            return "Field can't be empty";
+                          }
+                          return null;
+                        },
+                        label: 'Here...',
+                        icon: null,
+                        obscureText: false,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  'Phone',
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
                 ),
                 CustomTextField(
                   validator: (p0) {
@@ -125,21 +224,21 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
                       return null;
                     }
                   },
-                  controller: password1,
-                  obscureText: true,
-                  label: 'Confirm password',
-                  icon: CupertinoIcons.eye_slash_fill,
-                  keyType: TextInputType.visiblePassword,
+                  controller: phoneNumber,
+                  label: 'Enter your Phone Number',
+                  icon: Icons.phone_enabled,
+                  keyType: TextInputType.phone,
+                  obscureText: false,
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(
                     text: 'Sign Up',
-                    color1: const Color.fromARGB(255, 35, 223, 18),
-                    color2: const Color.fromARGB(255, 18, 81, 10),
+                    color1: color1Button,
+                    color2: color2Button,
                     onTab: () {},
                   ),
                 ),
@@ -155,11 +254,14 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
                     child: Text.rich(
                       TextSpan(
                         children: [
-                          TextSpan(text: "Do you have an account?  "),
+                          TextSpan(
+                            text: "Do you have an account?  ",
+                            style: TextStyle(color: Colors.white),
+                          ),
                           TextSpan(
                             text: 'Login',
                             style: TextStyle(
-                              color: Colors.amber,
+                              color: baseColor,
                               fontWeight: FontWeight.bold,
                             ),
                           )

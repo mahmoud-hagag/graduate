@@ -20,9 +20,10 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
   TextEditingController fName = TextEditingController();
   TextEditingController lName = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
-  TextEditingController disAbility = TextEditingController();
   TextEditingController gender = TextEditingController();
+  TextEditingController disAbility = TextEditingController();
   GlobalKey<FormState> formState = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
                   height: 15,
                 ),
                 const Text(
-                  'Sign Up As  Trainee',
+                  'Sign Up as Trainee',
                   style: TextStyle(
                     fontSize: 34,
                     fontWeight: FontWeight.bold,

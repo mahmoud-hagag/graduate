@@ -69,7 +69,7 @@ class _LoginTraineeState extends State<LoginTrainee> {
                         height: 20,
                       ),
                       const Text(
-                        'username',
+                        'User Name',
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class _LoginTraineeState extends State<LoginTrainee> {
                       CustomTextField(
                         obscureText: false,
                         controller: username,
-                        label: 'Enter your username address',
+                        label: 'Enter your user name',
                         icon: Icons.person,
                         validator: (p0) {
                           if (p0 == "") {
