@@ -61,7 +61,7 @@ class SplachScreen extends StatelessWidget {
               'assets/splash.json',
             ),
             backgroundColor: const Color.fromARGB(255, 39, 34, 34),
-            nextScreen: const HomeDo(),
+            nextScreen: const FirstPage(),
             duration: 3000,
             splashTransition: SplashTransition.fadeTransition,
             splashIconSize: 350,
