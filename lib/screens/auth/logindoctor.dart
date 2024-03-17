@@ -1,11 +1,14 @@
 // ignore_for_file: file_names
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/text_field.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/constants/links.dart';
+import 'package:graduate/services/login.dart';
 
 // ignore: must_be_immutable
 class LoginDoctor extends StatefulWidget {
@@ -16,18 +19,78 @@ class LoginDoctor extends StatefulWidget {
 }
 
 class _LoginDoctorState extends State<LoginDoctor> {
-  TextEditingController email = TextEditingController();
+  TextEditingController username = TextEditingController();
   bool isLoading = false;
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> formState = GlobalKey<FormState>();
+  final Crud _crud = Crud();
+
+  loginDo() async {
+    isLoading = true;
+    setState(() {});
+    if (formState.currentState!.validate()) {
+      try {
+        var response = await _crud.getRequest(
+            "$linkLoginDo?username=${username.text}&password=${password.text}");
+        if (response['status']) {
+          // ignore: use_build_context_synchronously
+          AwesomeDialog(
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.rightSlide,
+              title: 'Success 👀',
+              desc: 'you are login successfuly now',
+              btnOk: Center(
+                child: TextButton(
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(baseColor)),
+                  child: const Text(
+                    'Ok',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/home', (route) => false);
+                  },
+                ),
+              )).show();
+        } else if (!response["status"]) {
+          // ignore: use_build_context_synchronously
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.rightSlide,
+            title: 'Invalid Info ☠️',
+            desc: response["message"],
+          ).show();
+        }
+      } catch (e) {
+        // ignore: avoid_print
+        print("Exception $e");
+      }
+    } else {
+      // ignore: use_build_context_synchronously
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        animType: AnimType.rightSlide,
+        autoHide: const Duration(seconds: 4),
+        title: 'Oops! ☠️☠️',
+        desc: 'Please make sure all fields are filled out correctly.',
+      ).show();
+    }
+
+    isLoading = false;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(115, 81, 77, 77),
       body: isLoading
           ? const Center(
-              child: CupertinoActivityIndicator(),
+              child: CircularProgressIndicator(),
             )
           : Container(
               padding: const EdgeInsets.only(left: 16, right: 16),
@@ -76,10 +139,10 @@ class _LoginDoctorState extends State<LoginDoctor> {
                       ),
                       CustomTextField(
                         obscureText: false,
-                        controller: email,
+                        controller: username,
                         label: 'Enter your user name',
-                        icon: Icons.email_rounded,
-                        keyType: TextInputType.emailAddress,
+                        icon: Icons.person_4_sharp,
+                        keyType: TextInputType.name,
                         validator: (p0) {
                           if (p0 == "") {
                             return "can't to be empty";
@@ -167,7 +230,9 @@ class _LoginDoctorState extends State<LoginDoctor> {
                           text: 'Login',
                           color1: color1Button,
                           color2: color2Button,
-                          onTab: () {},
+                          onTab: () async {
+                            await loginDo();
+                          },
                         ),
                       ),
                       const SizedBox(

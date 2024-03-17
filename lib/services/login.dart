@@ -4,8 +4,8 @@ import 'package:http/http.dart' as http;
 
 class Crud {
   getRequest(String url) async {
+    await Future.delayed(const Duration(seconds: 2));
     final response = await http.get(Uri.parse(url));
-    print(response.body);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       return data;
@@ -15,6 +15,7 @@ class Crud {
   }
 
   postRequest(String url, Map data) async {
+    await Future.delayed(const Duration(seconds: 2));
     final response = await http.post(Uri.parse(url), body: data);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

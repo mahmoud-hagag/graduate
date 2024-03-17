@@ -1,9 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/text_field.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/constants/links.dart';
 import 'package:graduate/services/login.dart';
 
 // ignore: must_be_immutable
@@ -20,9 +22,66 @@ class _LoginTraineeState extends State<LoginTrainee> {
   bool isLoading = false;
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> formState = GlobalKey<FormState>();
-  loginTrainee() async {
-    var response = await _crud.getRequest(
-        "http://localhost/api2/api/user/login.php?username=${username.text}&password=${password.text}");
+  loginTr() async {
+    isLoading = true;
+    setState(() {});
+    if (formState.currentState!.validate()) {
+      try {
+        var response = await _crud.getRequest(
+            "$linkLoginTr?username=${username.text}&password=${password.text}");
+        if (response['status']) {
+          // ignore: use_build_context_synchronously
+          AwesomeDialog(
+              context: context,
+              dialogType: DialogType.success,
+              animType: AnimType.rightSlide,
+              title: 'Success 👀',
+              desc: 'you are login successfuly now',
+              btnOk: Center(
+                child: TextButton(
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(
+                          baseColor)),
+                  child: const Text(
+                    'Ok',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    // ignore: use_build_context_synchronously
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/home', (route) => false);
+                  },
+                ),
+              )).show();
+        } else if (!response["status"]) {
+          // ignore: use_build_context_synchronously
+          AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.rightSlide,
+            title: 'Invalid Info ☠️',
+            desc: response["message"],
+          ).show();
+        }
+      } catch (e) {
+        // ignore: avoid_print
+        print("Exception $e");
+      }
+    }else{
+      // ignore: use_build_context_synchronously
+        AwesomeDialog(
+           context: context,
+           dialogType: DialogType.warning,
+           animType: AnimType.rightSlide,
+           autoHide: const Duration(seconds: 4),
+           title: 'Oops! ☠️☠️',
+           desc:
+               'Please make sure all fields are filled out correctly.',
+         ).show();
+    }
+
+    isLoading = false;
+    setState(() {});
   }
 
   @override
@@ -31,7 +90,7 @@ class _LoginTraineeState extends State<LoginTrainee> {
       backgroundColor: backGround,
       body: isLoading
           ? const Center(
-              child: CupertinoActivityIndicator(),
+              child: CircularProgressIndicator(),
             )
           : Container(
               padding: const EdgeInsets.only(left: 16, right: 16),
@@ -171,7 +230,7 @@ class _LoginTraineeState extends State<LoginTrainee> {
                           color1: color1Button,
                           color2: color2Button,
                           onTab: () async {
-                            await loginTrainee();
+                            await loginTr();
                           },
                         ),
                       ),

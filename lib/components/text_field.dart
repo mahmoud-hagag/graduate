@@ -32,6 +32,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       height: 65,
       child: TextFormField(
         autocorrect: true,
+        
         enableSuggestions: true,
         validator: widget.validator,
         controller: widget.controller,
@@ -45,8 +46,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           filled: true,
           fillColor: const Color.fromARGB(255, 120, 66, 3),
-          labelText: widget.label,
-          labelStyle: const TextStyle(
+          hintText: widget.label,
+          hintStyle: const TextStyle(
             color: Colors.grey,
           ),
           suffixIcon: Padding(
