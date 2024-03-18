@@ -1,10 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:graduate/constants/colors.dart';
-import 'package:graduate/screens/doctors/profile.dart';
-import 'package:graduate/screens/doctors/search.dart';
-import 'package:graduate/screens/doctors/setting.dart';
-import 'package:graduate/screens/doctors/workout.dart';
+import 'package:graduate/components/header.dart';
 
 class HomeDo extends StatefulWidget {
   const HomeDo({super.key});
@@ -16,31 +11,19 @@ class HomeDo extends StatefulWidget {
 class _HomeDoState extends State<HomeDo> {
   @override
   Widget build(BuildContext context) {
-    return const DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        bottomNavigationBar: TabBar(
-          tabs: [
-            Tab(
-              icon: Icon(CupertinoIcons.home, size: 26.0),
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: const Column(
+              children: [
+                Header('Dear 7oda', rightSide: null)
+                
+              ],
             ),
-            Tab(
-              icon: Icon(CupertinoIcons.bubble_left, size: 26.0),
-            ),
-            Tab(
-              icon: Icon(Icons.insert_chart, size: 26.0),
-            ),
-            Tab(
-              icon: Icon(Icons.person_outlined, size: 26.0),
-            ),
-            Tab(
-              icon: Icon(Icons.person_outlined, size: 26.0),
-            ),
-          ],
-          labelPadding: EdgeInsets.all(5.0),
-          labelColor: baseColor,
-          unselectedLabelColor: Colors.grey,
-          indicatorWeight: 0.01,
+          ),
         ),
       ),
     );

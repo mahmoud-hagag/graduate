@@ -1,9 +1,10 @@
-// ignore: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages
+
+import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/firstpage.dart';
 import 'package:graduate/screens/auth/logindoctor.dart';
 import 'package:graduate/screens/auth/logintrainee.dart';
 import 'package:graduate/screens/auth/sign_updoctor.dart';
@@ -61,7 +62,7 @@ class SplachScreen extends StatelessWidget {
               'assets/splash.json',
             ),
             backgroundColor: const Color.fromARGB(255, 39, 34, 34),
-            nextScreen: const FirstPage(),
+            nextScreen: const NavBar(),
             duration: 3000,
             splashTransition: SplashTransition.fadeTransition,
             splashIconSize: 350,
