@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-
   final String title;
   final Widget? rightSide;
 
@@ -16,7 +15,7 @@ class Header extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.only(left: 20.0),
+          margin: const EdgeInsets.only(left: 10.0),
           height: 54.0,
           child: Text(
             title,
