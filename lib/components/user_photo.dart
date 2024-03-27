@@ -20,7 +20,7 @@ class UserPhoto extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(360),
         ),
-        color: Colors.redAccent,
+        color: const Color.fromARGB(255, 11, 119, 151),
         boxShadow: const [
           BoxShadow(
             color: Colors.black38,
