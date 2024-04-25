@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/setting_menu.dart';
 import 'package:graduate/components/user_photo.dart';
+import 'package:graduate/screens/chats/home.dart';
 import 'package:graduate/screens/doctors/helps.dart';
 
 class Setting extends StatelessWidget {
@@ -71,7 +72,11 @@ class Setting extends StatelessWidget {
                 SettingMenuWidget(
                   title: "So3od Chat",
                   icon: Icons.send_rounded,
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const HomeChat(),
+                    ));
+                  },
                 ),
                 const SizedBox(
                   height: 30,

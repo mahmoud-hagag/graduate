@@ -14,6 +14,7 @@ class Profile extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Header(
                   'Profile',
@@ -36,20 +37,87 @@ class Profile extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                SizedBox(
-                  width: 130,
-                  height: 130,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: const Image(
-                      image: AssetImage('assets/doctor.png'),
+                Center(
+                  child: SizedBox(
+                    width: 130,
+                    height: 130,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(100),
+                      child: const Image(
+                        image: AssetImage('assets/doctor.png'),
+                      ),
                     ),
                   ),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Your Name',
+                        style: TextStyle(fontSize: 18),),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.edit_outlined))
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Phone',
+                        style: TextStyle(fontSize: 18),),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.edit_outlined))
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Gender',
+                        style: TextStyle(fontSize: 18),),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.edit_outlined))
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        'Password',
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.edit_outlined))
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
               ],
             ),
           ),
