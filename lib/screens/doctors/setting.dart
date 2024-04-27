@@ -18,9 +18,9 @@ class Setting extends StatelessWidget {
             padding: const EdgeInsets.only(top: 20.0),
             child: Column(
               children: [
-                const Header(
+                 Header(
                   'Settings',
-                  rightSide: UserPhoto(),
+                  rightSide: UserPhoto(isDoctor: true,),
                 ),
                 const SizedBox(
                   height: 50,

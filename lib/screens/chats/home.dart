@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/screens/chats/chat_page.dart';
 
 class HomeChat extends StatelessWidget {
   const HomeChat({super.key});
@@ -30,8 +31,11 @@ class HomeChat extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 GestureDetector(
-                  onTap: (){},
-                  child: const Card(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => const ChatPage(),));
+                  },
+                  child:  Card(
                     elevation: .4,
                     child: SizedBox(
                       width: double.infinity,
@@ -39,7 +43,7 @@ class HomeChat extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.only(top: 20, left: 20),
                             child: Text(
                               'DR. mohamed',
@@ -49,13 +53,13 @@ class HomeChat extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsets.only(left: 8.0),
                                 child: Text(
                                   'can i talk to you ?',
@@ -64,7 +68,7 @@ class HomeChat extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              UserPhoto(),
+                              UserPhoto(isDoctor: true,),
                             ],
                           ),
                         ],
@@ -75,7 +79,7 @@ class HomeChat extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                const Card(
+                 Card(
                   elevation: 1.5,
                   child: SizedBox(
                     width: double.infinity,
@@ -83,7 +87,7 @@ class HomeChat extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 20, left: 20),
                           child: Text(
                             'fares',
@@ -93,14 +97,14 @@ class HomeChat extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 8.0),
+                            const Padding(
+                              padding:  EdgeInsets.only(left: 8.0),
                               child: Text(
                                 'Hi doctor !!',
                                 style: TextStyle(
@@ -108,7 +112,7 @@ class HomeChat extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            UserPhoto()
+                            UserPhoto(isDoctor: false,)
                           ],
                         ),
                       ],
@@ -118,7 +122,7 @@ class HomeChat extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                const Card(
+                 Card(
                   elevation: 3,
                   child: SizedBox(
                     width: double.infinity,
@@ -126,7 +130,7 @@ class HomeChat extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 20, left: 20),
                           child: Text(
                             'Eslam',
@@ -136,13 +140,13 @@ class HomeChat extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Text(
                                 'this new challenge',
@@ -151,7 +155,7 @@ class HomeChat extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            UserPhoto()
+                            UserPhoto(isDoctor: true,)
                           ],
                         ),
                       ],
@@ -161,7 +165,7 @@ class HomeChat extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                const Card(
+                 Card(
                   elevation: 9,
                   child: SizedBox(
                     width: double.infinity,
@@ -169,7 +173,7 @@ class HomeChat extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
+                        const Padding(
                           padding: EdgeInsets.only(top: 20, left: 20),
                           child: Text(
                             'Gellany',
@@ -179,13 +183,13 @@ class HomeChat extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Padding(
+                            const Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Text(
                                 'Never give up',
@@ -194,7 +198,7 @@ class HomeChat extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            UserPhoto()
+                            UserPhoto(isDoctor: false,)
                           ],
                         ),
                       ],

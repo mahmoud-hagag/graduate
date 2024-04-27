@@ -4,3 +4,4 @@ const String linkSignUpTr = "$linkServerName/user/signup.php";
 const String linkSignUpDo = "$linkServerName/doctor/signup.php";
 const String linkLoginDo = "$linkServerName/doctor/login.php";
 const String linkLoginTr = "$linkServerName/user/login.php";
+const String linkAllPatients = "http://127.0.0.1:8000/api/workouts";

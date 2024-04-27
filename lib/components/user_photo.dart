@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class UserPhoto extends StatelessWidget {
-  const UserPhoto({super.key});
-
+ UserPhoto({super.key,required this.isDoctor});
+  bool isDoctor;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,9 +11,10 @@ class UserPhoto extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       margin: const EdgeInsets.only(right: 20.0),
       decoration: BoxDecoration(
-        image: const DecorationImage(
+        image:  DecorationImage(
           image: AssetImage(
-            'assets/doctor.png',
+            isDoctor?
+            'assets/doctor.png':'assets/user.jpg',
           ),
           fit: BoxFit.fill,
         ),

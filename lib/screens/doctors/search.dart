@@ -13,16 +13,16 @@ class Search extends StatelessWidget {
         child: SafeArea(
           child: Container(
             padding: const EdgeInsets.only(top: 20.0),
-            child: const Column(
+            child:  Column(
               children: [
                 Header(
                   'Search',
-                  rightSide: UserPhoto(),
+                  rightSide: UserPhoto(isDoctor: true,),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 60,
                 ),
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.0),
                   child: SearchBar(
                     elevation: MaterialStatePropertyAll(.5),

@@ -3,6 +3,7 @@ import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/screens/doctors/view_patients.dart';
 
 class HomeDo extends StatefulWidget {
   const HomeDo({super.key});
@@ -22,7 +23,7 @@ class _HomeDoState extends State<HomeDo> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                const Header('Dear 7oda', rightSide: UserPhoto()),
+               Header('Dear 7oda', rightSide: UserPhoto(isDoctor: true,)),
                 const SizedBox(height: 20),
                 Card(
                   elevation: .7,
@@ -112,7 +113,11 @@ class _HomeDoState extends State<HomeDo> {
                             Padding(
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => ViewAllPatients(),
+                                  ));
+                                },
                                 child: const SizedBox(
                                   width: 50,
                                   child: Center(child: Text('Go')),
