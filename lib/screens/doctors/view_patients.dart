@@ -14,15 +14,12 @@ class ViewAllPatients extends StatefulWidget {
 }
 
 class _ViewAllPatientsState extends State<ViewAllPatients> {
-  final Crud _crud = Crud();
+  Crud _crud = Crud();
   List<dynamic> patientsList = [];
   getUsersData() async {
-    var response = await DioHelper.postData(url: "http://127.0.0.1:8000/api/auth/user/login?",data: {
-      "email":"gabdo@yahoo.com",
-      "password":"123456"
-    });
+    var response = await _crud.getRequest('http://10.0.2.2:8000/api/workouts');
     print("==================================");
-    print(response);
+    print(response);                   
   }
 
   @override
