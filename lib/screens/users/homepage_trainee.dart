@@ -1,32 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:graduate/components/custom_button.dart';
+import 'package:graduate/components/custom_page_view.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
-import 'package:graduate/constants/colors.dart';
-import 'package:graduate/screens/doctors/create_program.dart';
-import 'package:graduate/screens/doctors/view_patients.dart';
 
-class HomeDo extends StatefulWidget {
-  const HomeDo({super.key});
+class HomeTr extends StatefulWidget {
+  const HomeTr({super.key});
 
   @override
-  State<HomeDo> createState() => _HomeDoState();
+  State<HomeTr> createState() => _HomeTrState();
 }
 
-class _HomeDoState extends State<HomeDo> {
+class _HomeTrState extends State<HomeTr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-               Header('Dear 7oda', rightSide: UserPhoto(isDoctor: true,)),
+                Header('Dear !!',
+                    rightSide: UserPhoto(
+                      isDoctor: false,
+                    )),
                 const SizedBox(height: 20),
-                Card(
+                const SizedBox(
+                  height: 120,
+                  child: PageViewCustom(),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                 Card(
                   elevation: .7,
                   child: SizedBox(
                     width: double.infinity,
@@ -62,7 +68,9 @@ class _HomeDoState extends State<HomeDo> {
                             Padding(
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const PageViewCustom(),));
+                                },
                                 child: const SizedBox(
                                   width: 50,
                                   child: Center(child: Text('Go')),
@@ -114,11 +122,7 @@ class _HomeDoState extends State<HomeDo> {
                             Padding(
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => const ViewAllPatients(),
-                                  ));
-                                },
+                                onPressed: () {},
                                 child: const SizedBox(
                                   width: 50,
                                   child: Center(child: Text('Go')),
@@ -186,19 +190,6 @@ class _HomeDoState extends State<HomeDo> {
                 const SizedBox(
                   height: 20,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: CustomButton(
-                        text: '+ Create new plan',
-                        onTab: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const CreateProgram(),));
-                        },
-                        color1: color1Button,
-                        color2: color2Button),
-                  ),
-                )
               ],
             ),
           ),

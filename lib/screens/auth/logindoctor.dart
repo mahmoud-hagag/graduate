@@ -51,7 +51,7 @@ class _LoginDoctorState extends State<LoginDoctor> {
                   onPressed: () {
                     // ignore: use_build_context_synchronously
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/home', (route) => false);
+                        .pushNamedAndRemoveUntil('/homeDo', (route) => false);
                   },
                 ),
               )).show();

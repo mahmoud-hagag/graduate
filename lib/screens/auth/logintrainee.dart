@@ -27,9 +27,12 @@ class _LoginTraineeState extends State<LoginTrainee> {
     setState(() {});
     if (formState.currentState!.validate()) {
       try {
-        var response = await _crud.getRequest(
-            "$linkLoginTr?username=${username.text}&password=${password.text}");
-        if (response['status']) {
+        var response = await _crud.postRequest(
+            linkLoginTr,{
+              "email": username.text,
+              "password" : password.text
+            });
+        if (response["expires_in"] == 3600) {
           // ignore: use_build_context_synchronously
           AwesomeDialog(
               context: context,
@@ -40,8 +43,7 @@ class _LoginTraineeState extends State<LoginTrainee> {
               btnOk: Center(
                 child: TextButton(
                   style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                          baseColor)),
+                      backgroundColor: MaterialStatePropertyAll(baseColor)),
                   child: const Text(
                     'Ok',
                     style: TextStyle(color: Colors.white),
@@ -49,35 +51,34 @@ class _LoginTraineeState extends State<LoginTrainee> {
                   onPressed: () {
                     // ignore: use_build_context_synchronously
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/home', (route) => false);
+                        .pushNamedAndRemoveUntil('/NavTr', (route) => false);
                   },
                 ),
               )).show();
-        } else if (!response["status"]) {
+        } else if (response["error"]=="Unauthorized") {
           // ignore: use_build_context_synchronously
           AwesomeDialog(
             context: context,
             dialogType: DialogType.error,
             animType: AnimType.rightSlide,
             title: 'Invalid Info ☠️',
-            desc: response["message"],
+            desc: response["error"],
           ).show();
         }
       } catch (e) {
         // ignore: avoid_print
         print("Exception $e");
       }
-    }else{
+    } else {
       // ignore: use_build_context_synchronously
-        AwesomeDialog(
-           context: context,
-           dialogType: DialogType.warning,
-           animType: AnimType.rightSlide,
-           autoHide: const Duration(seconds: 4),
-           title: 'Oops! ☠️☠️',
-           desc:
-               'Please make sure all fields are filled out correctly.',
-         ).show();
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        animType: AnimType.rightSlide,
+        autoHide: const Duration(seconds: 4),
+        title: 'Oops! ☠️☠️',
+        desc: 'Please make sure all fields are filled out correctly.',
+      ).show();
     }
 
     isLoading = false;

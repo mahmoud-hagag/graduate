@@ -64,7 +64,7 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
                 onPressed: () {
                   // ignore: use_build_context_synchronously
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/home', (route) => false);
+                      .pushNamedAndRemoveUntil('/homeTr', (route) => false);
                 },
               ),
             )).show();

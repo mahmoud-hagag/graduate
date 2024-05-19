@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class UserPhoto extends StatelessWidget {
  UserPhoto({super.key,required this.isDoctor});
   bool isDoctor;

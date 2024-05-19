@@ -33,7 +33,7 @@ class SettingMenuWidget extends StatelessWidget {
       ),
       title: Text(
         title,
-        style: Theme.of(context).textTheme.bodyLarge?.apply(color: textColor),
+        style: Theme.of(context).textTheme.bodyLarge?.apply(color: textColor??Colors.white),
         textScaler: const TextScaler.linear(1.3),
       ),
     );

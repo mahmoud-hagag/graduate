@@ -1,6 +1,8 @@
 // ignore_for_file: depend_on_referenced_packages
 
+import 'package:graduate/firstpage.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
+import 'package:graduate/screens/users/tab_bar_trainee.dart';
 import 'package:graduate/services/dio_helper.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -10,7 +12,6 @@ import 'package:graduate/screens/auth/logindoctor.dart';
 import 'package:graduate/screens/auth/logintrainee.dart';
 import 'package:graduate/screens/auth/sign_updoctor.dart';
 import 'package:graduate/screens/auth/sign_uptrainee.dart';
-import 'package:graduate/screens/doctors/homepage.dart';
 import 'package:lottie/lottie.dart';
 
 void main() {
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         '/logintrainee': (context) => const LoginTrainee(),
         '/sign_uptrainee': (context) => const SignUpTrainee(),
         '/sign_updoctor': (context) => const SignUPDoctor(),
-        '/homeDo': (context) => const HomeDo(),
+        '/NavDo': (context) =>  NavBar(),
+        '/NavTr': (context) =>  NavBarTR(),
       },
       theme: ThemeData(
           colorScheme: const ColorScheme(
@@ -65,7 +67,7 @@ class SplachScreen extends StatelessWidget {
               'assets/splash.json',
             ),
             backgroundColor: const Color.fromARGB(255, 39, 34, 34),
-            nextScreen: const NavBar(),
+            nextScreen: const FirstPage(),
             duration: 3000,
             splashTransition: SplashTransition.fadeTransition,
             splashIconSize: 350,

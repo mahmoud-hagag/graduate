@@ -1,21 +1,16 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/screens/doctors/homepage.dart';
-import 'package:graduate/screens/doctors/profile.dart';
-import 'package:graduate/screens/doctors/search.dart';
-import 'package:graduate/screens/doctors/setting.dart';
-import 'package:graduate/screens/doctors/workout.dart';
+import 'package:graduate/screens/users/homepage_trainee.dart';
+import 'package:graduate/screens/users/profile_trainee.dart';
+import 'package:graduate/screens/users/search_trainee.dart';
+import 'package:graduate/screens/users/setting_trainee.dart';
+import 'package:graduate/screens/users/workout_trainee.dart';
 
 // ignore: must_be_immutable
-class NavBar extends StatelessWidget {
-  int? currentIndex = 0;
-   NavBar({
-    super.key,
-     this.currentIndex,
-  });
+class NavBarTR extends StatelessWidget {
+ int? currentIndex=0;
+  NavBarTR({super.key, this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +19,11 @@ class NavBar extends StatelessWidget {
       length: 5,
       child: Scaffold(
         body: const TabBarView(children: [
-          HomeDo(),
-          WorkOut(),
-          Setting(),
-          Search(),
-          Profile(),
+          HomeTr(),
+          WorkOutTR(),
+          SettingTr(),
+          SearchTr(),
+          ProfileTr(),
         ]),
         bottomNavigationBar: Container(
           height: 70,

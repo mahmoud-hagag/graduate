@@ -1,10 +1,5 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:graduate/components/user_photo.dart';
-import 'package:graduate/constants/links.dart';
-import 'package:graduate/services/dio_helper.dart';
-import 'package:graduate/services/login.dart';
 
 class ViewAllPatients extends StatefulWidget {
   const ViewAllPatients({super.key});
@@ -14,14 +9,6 @@ class ViewAllPatients extends StatefulWidget {
 }
 
 class _ViewAllPatientsState extends State<ViewAllPatients> {
-  Crud _crud = Crud();
-  List<dynamic> patientsList = [];
-  getUsersData() async {
-    var response = await _crud.getRequest('http://10.0.2.2:8000/api/workouts');
-    print("==================================");
-    print(response);                   
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,15 +62,13 @@ class _ViewAllPatientsState extends State<ViewAllPatients> {
                         Padding(
                           padding: const EdgeInsets.only(right: 18.0),
                           child: IconButton(
-                            onPressed: () {
-                              getUsersData();
-                            },
-                            icon: Icon(Icons.pix_rounded, size: 40),
+                            onPressed: () {},
+                            icon: const Icon(Icons.pix_rounded, size: 40),
                           ),
                         )
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 26,
                     ),
                     Row(
@@ -102,7 +87,7 @@ class _ViewAllPatientsState extends State<ViewAllPatients> {
                           padding: const EdgeInsets.only(right: 18.0),
                           child: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.bar_chart_rounded, size: 40),
+                            icon: const Icon(Icons.bar_chart_rounded, size: 40),
                           ),
                         )
                       ],
