@@ -41,13 +41,13 @@ class _PageViewCustomState extends State<PageViewCustom> {
         ),
         Container(
           height: 180,
-          width: MediaQuery.of(context).size.width - 40,
-          margin: const EdgeInsets.only(right: 10),
+          width: MediaQuery.of(context).size.width - 20,
+          margin: const EdgeInsets.only(right: 20),
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 12, 225, 101),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: const Center(child: Text('*************')),
+          child: const Center(child: Text('can you\ndo anything',style: TextStyle(fontSize: 22,fontStyle: FontStyle.italic),)),
         ),
       ],
     );

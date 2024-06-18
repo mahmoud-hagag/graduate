@@ -25,23 +25,23 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
   TextEditingController lName = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController gender = TextEditingController();
+  bool isSelectedG = true;
   final Crud _crud = Crud();
   GlobalKey<FormState> formState = GlobalKey<FormState>();
-  bool isSelectedG = true;
 
   signUpDo() async {
     isLoading = true;
     setState(() {});
     if (formState.currentState!.validate()) {
       var response = await _crud.postRequest(linkSignUpDo, {
-        "username": username.text,
+        "email": username.text,
         "password": password.text,
         "firstName": fName.text,
         "lastName": lName.text,
-        "phoneNumber": phoneNumber.text,
+        // "phoneNumber": phoneNumber.text,
         "Gender": gender.text,
       });
-      if (response["status"]) {
+      if (response["expires_in"] == 3600) {
         // ignore: use_build_context_synchronously
         AwesomeDialog(
             context: context,
@@ -61,7 +61,7 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
                 onPressed: () {
                   // ignore: use_build_context_synchronously
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/homeDo', (route) => false);
+                      .pushNamedAndRemoveUntil('/NavDo', (route) => false);
                 },
               ),
             )).show();
@@ -120,7 +120,7 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
                         height: 10,
                       ),
                       const Text(
-                        'User Name',
+                        'Email',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

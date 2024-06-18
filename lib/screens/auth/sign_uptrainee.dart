@@ -37,15 +37,15 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
     setState(() {});
     if (formState.currentState!.validate()) {
       var response = await _crud.postRequest(linkSignUpTr, {
-        "username": username.text,
+        "email": username.text,
         "password": password.text,
         "firstName": fName.text,
         "lastName": lName.text,
-        "phoneNumber": phoneNumber.text,
+        // "phoneNumber": phoneNumber.text,
         "Gender": gender.text,
         "disability": disAbility.text,
       });
-      if (response["status"]) {
+      if (response["expires_in"] == 3600) {
         // ignore: use_build_context_synchronously
         AwesomeDialog(
             context: context,
@@ -64,7 +64,7 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
                 onPressed: () {
                   // ignore: use_build_context_synchronously
                   Navigator.of(context)
-                      .pushNamedAndRemoveUntil('/homeTr', (route) => false);
+                      .pushNamedAndRemoveUntil('/NavTr', (route) => false);
                 },
               ),
             )).show();

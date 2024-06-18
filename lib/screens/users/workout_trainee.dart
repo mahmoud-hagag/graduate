@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
+import 'package:graduate/screens/users/tab_bar_trainee.dart';
 
 class WorkOutTR extends StatelessWidget {
   const WorkOutTR({super.key});
@@ -17,8 +18,20 @@ class WorkOutTR extends StatelessWidget {
               children: [
                 Header(
                   'Workout',
-                  rightSide: UserPhoto(
-                    isDoctor: true,
+                  rightSide: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => 
+                          NavBarTR(
+                            currentIndex: 4,
+                          ),
+                          ),
+                          (route) => false,
+                          );
+                    },
+                    child: UserPhoto(
+                      isDoctor: false,
+                    ),
                   ),
                 ),
                 const SizedBox(

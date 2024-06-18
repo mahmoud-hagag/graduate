@@ -4,6 +4,7 @@ import 'package:graduate/components/setting_menu.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/screens/chats/home.dart';
 import 'package:graduate/screens/doctors/helps.dart';
+import 'package:graduate/screens/users/tab_bar_trainee.dart';
 
 class SettingTr extends StatelessWidget {
   const SettingTr({super.key});
@@ -20,8 +21,20 @@ class SettingTr extends StatelessWidget {
               children: [
                 Header(
                   'Settings',
-                  rightSide: UserPhoto(
-                    isDoctor: false,
+                  rightSide: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => NavBarTR(
+                            currentIndex: 4,
+                          ),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                    child: UserPhoto(
+                      isDoctor: false,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -31,7 +44,6 @@ class SettingTr extends StatelessWidget {
                   title: "Account",
                   icon: Icons.person_4,
                   onPress: () {},
-                  
                 ),
                 const SizedBox(
                   height: 30,

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         '/logintrainee': (context) => const LoginTrainee(),
         '/sign_uptrainee': (context) => const SignUpTrainee(),
         '/sign_updoctor': (context) => const SignUPDoctor(),
-        '/NavDo': (context) =>  NavBar(),
+        '/NavDo': (context) =>  NavBarDo(),
         '/NavTr': (context) =>  NavBarTR(),
       },
       theme: ThemeData(
@@ -67,7 +67,7 @@ class SplachScreen extends StatelessWidget {
               'assets/splash.json',
             ),
             backgroundColor: const Color.fromARGB(255, 39, 34, 34),
-            nextScreen: const FirstPage(),
+            nextScreen: NavBarTR(),
             duration: 3000,
             splashTransition: SplashTransition.fadeTransition,
             splashIconSize: 350,

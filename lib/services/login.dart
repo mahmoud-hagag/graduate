@@ -16,7 +16,7 @@ class Crud {
   }
 
   postRequest(String url, Map data) async {
-    await Future.delayed(const Duration(seconds: 2));
+    // await Future.delayed(const Duration(seconds: 2));
     final response = await http.post(Uri.parse(url), body: data);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

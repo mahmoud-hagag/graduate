@@ -4,6 +4,7 @@ import 'package:graduate/components/setting_menu.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/screens/chats/home.dart';
 import 'package:graduate/screens/doctors/helps.dart';
+import 'package:graduate/screens/doctors/tab_bar.dart';
 
 class Setting extends StatelessWidget {
   const Setting({super.key});
@@ -20,8 +21,20 @@ class Setting extends StatelessWidget {
               children: [
                 Header(
                   'Settings',
-                  rightSide: UserPhoto(
-                    isDoctor: true,
+                  rightSide: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => 
+                          NavBarDo(
+                            currentIndex: 4,
+                          ),
+                          ),
+                          (route) => false,
+                          );
+                    },
+                    child: UserPhoto(
+                      isDoctor: true,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -30,7 +43,16 @@ class Setting extends StatelessWidget {
                 SettingMenuWidget(
                   title: "Account",
                   icon: Icons.person_4,
-                  onPress: () {},
+                  onPress: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => 
+                          NavBarDo(
+                            currentIndex: 4,
+                          ),
+                          ),
+                          (route) => false,
+                          );
+                  },
                 ),
                 const SizedBox(
                   height: 30,

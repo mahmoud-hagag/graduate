@@ -10,9 +10,9 @@ import 'package:graduate/screens/doctors/setting.dart';
 import 'package:graduate/screens/doctors/workout.dart';
 
 // ignore: must_be_immutable
-class NavBar extends StatelessWidget {
+class NavBarDo extends StatelessWidget {
   int? currentIndex = 0;
-   NavBar({
+   NavBarDo({
     super.key,
      this.currentIndex,
   });

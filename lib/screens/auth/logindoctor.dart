@@ -30,9 +30,12 @@ class _LoginDoctorState extends State<LoginDoctor> {
     setState(() {});
     if (formState.currentState!.validate()) {
       try {
-        var response = await _crud.getRequest(
-            "$linkLoginDo?username=${username.text}&password=${password.text}");
-        if (response['status']) {
+        var response = await _crud.postRequest(
+            linkLoginDo,{
+              "email": username.text,
+              "password" : password.text
+            });
+        if (response["expires_in"] == 3600) {
           // ignore: use_build_context_synchronously
           AwesomeDialog(
               context: context,
@@ -51,18 +54,18 @@ class _LoginDoctorState extends State<LoginDoctor> {
                   onPressed: () {
                     // ignore: use_build_context_synchronously
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil('/homeDo', (route) => false);
+                        .pushNamedAndRemoveUntil('/NavDo', (route) => false);
                   },
                 ),
               )).show();
-        } else if (!response["status"]) {
+        } else if (response["error"]=="Unauthorized") {
           // ignore: use_build_context_synchronously
           AwesomeDialog(
             context: context,
             dialogType: DialogType.error,
             animType: AnimType.rightSlide,
             title: 'Invalid Info ☠️',
-            desc: response["message"],
+            desc: response["error"],
           ).show();
         }
       } catch (e) {
@@ -128,7 +131,7 @@ class _LoginDoctorState extends State<LoginDoctor> {
                         height: 20,
                       ),
                       const Text(
-                        'User name',
+                        'Email',
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -140,7 +143,7 @@ class _LoginDoctorState extends State<LoginDoctor> {
                       CustomTextField(
                         obscureText: false,
                         controller: username,
-                        label: 'Enter your user name',
+                        label: 'Enter your email',
                         icon: Icons.person_4_sharp,
                         keyType: TextInputType.name,
                         validator: (p0) {

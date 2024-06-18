@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
+import 'package:graduate/screens/doctors/tab_bar.dart';
 
 class WorkOut extends StatelessWidget {
   const WorkOut({super.key});
@@ -17,8 +18,20 @@ class WorkOut extends StatelessWidget {
               children: [
                 Header(
                   'Workout',
-                  rightSide: UserPhoto(
-                    isDoctor: true,
+                  rightSide: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => 
+                          NavBarDo(
+                            currentIndex: 4,
+                          ),
+                          ),
+                          (route) => false,
+                          );
+                    },
+                    child: UserPhoto(
+                      isDoctor: true,
+                    ),
                   ),
                 ),
                 const SizedBox(
