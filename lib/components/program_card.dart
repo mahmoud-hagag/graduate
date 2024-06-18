@@ -15,7 +15,7 @@ class ProgramCard extends StatelessWidget {
       elevation: .7,
       child: SizedBox(
         width: double.infinity,
-        height: 130,
+        height: 150,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

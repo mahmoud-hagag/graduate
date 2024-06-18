@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/screens/users/calories.dart';
 import 'package:graduate/screens/users/programs_details.dart';
 import 'package:graduate/screens/users/progress.dart';
 
@@ -73,9 +74,11 @@ class Programs extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const Progress(),
-                  ));
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const Progress(),
+                    ),
+                  );
                 },
                 child: const Card(
                   elevation: .7,
@@ -111,33 +114,42 @@ class Programs extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              const Card(
-                elevation: .7,
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 150,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 20, left: 20),
-                        child: Icon(
-                          Icons.food_bank_outlined,
-                          size: 45,
-                          color: baseColor,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 20, left: 20),
-                        child: Text(
-                          'Calories',
-                          style: TextStyle(
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const Calories(),
+                    ),
+                  );
+                },
+                child: const Card(
+                  elevation: .7,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 150,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 20, left: 20),
+                          child: Icon(
+                            Icons.food_bank_outlined,
+                            size: 45,
+                            color: baseColor,
                           ),
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: EdgeInsets.only(top: 20, left: 20),
+                          child: Text(
+                            'Calories',
+                            style: TextStyle(
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

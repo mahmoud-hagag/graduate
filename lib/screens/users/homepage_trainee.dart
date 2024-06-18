@@ -164,7 +164,16 @@ class _HomeTrState extends State<HomeTr> {
                             Padding(
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => NavBarTR(
+                                        currentIndex: 1,
+                                      ),
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
                                 child: const SizedBox(
                                   width: 50,
                                   child: Center(child: Text('Go')),
@@ -216,7 +225,16 @@ class _HomeTrState extends State<HomeTr> {
                             Padding(
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => NavBarTR(
+                                        currentIndex: 3,
+                                      ),
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
                                 child: const SizedBox(
                                   width: 50,
                                   child: Center(child: Text('Go')),

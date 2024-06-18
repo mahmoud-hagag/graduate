@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
+import 'package:graduate/screens/users/tab_bar_trainee.dart';
 
 class SearchTr extends StatelessWidget {
   const SearchTr({super.key});
@@ -17,7 +18,21 @@ class SearchTr extends StatelessWidget {
               children: [
                 Header(
                   'Search',
-                  rightSide: UserPhoto(isDoctor: true,),
+                  rightSide: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => NavBarTR(
+                            currentIndex: 4,
+                          ),
+                        ),
+                        (route) => false,
+                      );
+                    },
+                    child: UserPhoto(
+                      isDoctor: false,
+                    ),
+                  ),
                 ),
                 const SizedBox(
                   height: 60,

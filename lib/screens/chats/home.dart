@@ -32,10 +32,11 @@ class HomeChat extends StatelessWidget {
                 const SizedBox(height: 20),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => const ChatPage(),));
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ChatPage(),
+                    ));
                   },
-                  child:  Card(
+                  child: Card(
                     elevation: .4,
                     child: SizedBox(
                       width: double.infinity,
@@ -68,7 +69,9 @@ class HomeChat extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              UserPhoto(isDoctor: true,),
+                              UserPhoto(
+                                isDoctor: true,
+                              ),
                             ],
                           ),
                         ],
@@ -79,7 +82,7 @@ class HomeChat extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                 Card(
+                Card(
                   elevation: 1.5,
                   child: SizedBox(
                     width: double.infinity,
@@ -104,7 +107,7 @@ class HomeChat extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Padding(
-                              padding:  EdgeInsets.only(left: 8.0),
+                              padding: EdgeInsets.only(left: 8.0),
                               child: Text(
                                 'Hi doctor !!',
                                 style: TextStyle(
@@ -112,7 +115,9 @@ class HomeChat extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            UserPhoto(isDoctor: false,)
+                            UserPhoto(
+                              isDoctor: false,
+                            )
                           ],
                         ),
                       ],
@@ -122,7 +127,7 @@ class HomeChat extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                 Card(
+                Card(
                   elevation: 3,
                   child: SizedBox(
                     width: double.infinity,
@@ -155,7 +160,9 @@ class HomeChat extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            UserPhoto(isDoctor: true,)
+                            UserPhoto(
+                              isDoctor: true,
+                            )
                           ],
                         ),
                       ],
@@ -165,7 +172,7 @@ class HomeChat extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                 Card(
+                Card(
                   elevation: 9,
                   child: SizedBox(
                     width: double.infinity,
@@ -198,7 +205,9 @@ class HomeChat extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            UserPhoto(isDoctor: false,)
+                            UserPhoto(
+                              isDoctor: false,
+                            )
                           ],
                         ),
                       ],
