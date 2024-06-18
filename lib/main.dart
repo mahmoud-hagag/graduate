@@ -1,6 +1,4 @@
 // ignore_for_file: depend_on_referenced_packages
-
-import 'package:graduate/firstpage.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/screens/users/tab_bar_trainee.dart';
 import 'package:graduate/services/dio_helper.dart';
