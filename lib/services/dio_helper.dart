@@ -45,7 +45,7 @@ class DioHelper {
       dynamic query,
       required dynamic data,
       String lang = 'en',
-      String? token}) async {
+      String? token, required Map<String, String> headers}) async {
     init(); // Initialize the Dio instance
     dio?.options.headers = {
       'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/screens/auth/logindoctor.dart';
 import 'package:graduate/screens/doctors/create_program.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/screens/doctors/view_patients.dart';
@@ -30,13 +31,13 @@ class _HomeDoState extends State<HomeDo> {
                   rightSide: GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => 
-                          NavBarDo(
+                        MaterialPageRoute(
+                          builder: (context) => NavBarDo(
                             currentIndex: 4,
                           ),
-                          ),
-                          (route) => false,
-                          );
+                        ),
+                        (route) => false,
+                      );
                     },
                     child: UserPhoto(
                       isDoctor: true,
@@ -80,7 +81,16 @@ class _HomeDoState extends State<HomeDo> {
                             Padding(
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => NavBarDo(
+                                        currentIndex: 1,
+                                      ),
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
                                 child: const SizedBox(
                                   width: 50,
                                   child: Center(child: Text('Go')),
@@ -189,7 +199,16 @@ class _HomeDoState extends State<HomeDo> {
                             Padding(
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) => NavBarDo(
+                                        currentIndex: 3,
+                                      ),
+                                    ),
+                                    (route) => false,
+                                  );
+                                },
                                 child: const SizedBox(
                                   width: 50,
                                   child: Center(child: Text('Go')),

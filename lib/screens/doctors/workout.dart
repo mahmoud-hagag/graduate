@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
+import 'package:graduate/constants/colors.dart';
+import 'package:graduate/screens/doctors/create_program.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 
 class WorkOut extends StatelessWidget {
@@ -13,7 +15,7 @@ class WorkOut extends StatelessWidget {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            padding: const EdgeInsets.only(top: 20.0),
+            padding: const EdgeInsets.only(top: 20, left: 8, right: 8),
             child: Column(
               children: [
                 Header(
@@ -21,13 +23,13 @@ class WorkOut extends StatelessWidget {
                   rightSide: GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => 
-                          NavBarDo(
+                        MaterialPageRoute(
+                          builder: (context) => NavBarDo(
                             currentIndex: 4,
                           ),
-                          ),
-                          (route) => false,
-                          );
+                        ),
+                        (route) => false,
+                      );
                     },
                     child: UserPhoto(
                       isDoctor: true,
@@ -37,34 +39,130 @@ class WorkOut extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    elevation: 1.5,
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 250,
-                      child: Column(
-                        children: [
-                          Row(
+                Card(
+                  elevation: .7,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 140,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 20),
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.watch_outlined)),
                               const Text(
-                                'Pushups',
+                                'Push Ups',
                                 style: TextStyle(
-                                    fontSize: 26, fontStyle: FontStyle.italic),
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.star_outline_rounded))
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CreateProgram(),
+                                    ));
+                                  },
+                                  icon: const Icon(
+                                    Icons.mode_edit_rounded,
+                                    color: baseColor,
+                                    size: 35,
+                                  ))
                             ],
                           ),
-                          
-                        ],
-                      ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            'duration:    reps:    sets:    exercise:',
+                            style: TextStyle(fontSize: 18, color: Colors.grey),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            '30 min       115      15        5',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Card(
+                  elevation: .7,
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 140,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Push Ups',
+                                style: TextStyle(
+                                  fontSize: 26,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          const CreateProgram(),
+                                    ));
+                                  },
+                                  icon: const Icon(
+                                    Icons.mode_edit_rounded,
+                                    color: baseColor,
+                                    size: 35,
+                                  ))
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            'duration:    reps:    sets:    exercise:',
+                            style: TextStyle(fontSize: 18, color: Colors.grey),
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 8.0),
+                          child: Text(
+                            '30 min       115      15        5',
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
                     ),
                   ),
                 ),

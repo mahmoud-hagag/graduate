@@ -6,6 +6,7 @@ import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/text_field.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/constants/links.dart';
+import 'package:graduate/screens/auth/logindoctor.dart';
 import 'package:graduate/services/login.dart';
 
 // ignore: must_be_immutable
@@ -18,7 +19,7 @@ class LoginTrainee extends StatefulWidget {
 
 class _LoginTraineeState extends State<LoginTrainee> {
   final Crud _crud = Crud();
-  TextEditingController username = TextEditingController();
+  TextEditingController phone = TextEditingController();
   bool isLoading = false;
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -28,11 +29,10 @@ class _LoginTraineeState extends State<LoginTrainee> {
     if (formState.currentState!.validate()) {
       try {
         var response = await _crud.postRequest(
-            linkLoginTr,{
-              "email": username.text,
-              "password" : password.text
-            });
-        if (response["expires_in"] == 3600) {
+            linkLoginTr, {"phone": phone.text, "password": password.text});
+        if (response["status"]) {
+          token = response["token"]['original']['access_token'];
+          isDoctor = 'user';
           // ignore: use_build_context_synchronously
           AwesomeDialog(
               context: context,
@@ -55,14 +55,14 @@ class _LoginTraineeState extends State<LoginTrainee> {
                   },
                 ),
               )).show();
-        } else if (response["error"]=="Unauthorized") {
+        } else if (!response["status"]) {
           // ignore: use_build_context_synchronously
           AwesomeDialog(
             context: context,
             dialogType: DialogType.error,
             animType: AnimType.rightSlide,
             title: 'Invalid Info ☠️',
-            desc: response["error"],
+            desc: response["msg"],
           ).show();
         }
       } catch (e) {
@@ -129,7 +129,7 @@ class _LoginTraineeState extends State<LoginTrainee> {
                         height: 20,
                       ),
                       const Text(
-                        'User Name',
+                        'Phone',
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -140,9 +140,10 @@ class _LoginTraineeState extends State<LoginTrainee> {
                       ),
                       CustomTextField(
                         obscureText: false,
-                        controller: username,
-                        label: 'Enter your user name',
+                        controller: phone,
+                        label: 'Enter your phone',
                         icon: Icons.person,
+                        keyType: TextInputType.phone,
                         validator: (p0) {
                           if (p0 == "") {
                             return "can't to be empty";
@@ -178,6 +179,9 @@ class _LoginTraineeState extends State<LoginTrainee> {
                           }
                         },
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -198,31 +202,7 @@ class _LoginTraineeState extends State<LoginTrainee> {
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
-                      ),
-                      const Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              thickness: 2.5,
-                            ),
-                          ),
-                          Text(
-                            '      Or with      ',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 16),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              thickness: 2.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 50,
+                        height: 40,
                       ),
                       SizedBox(
                         width: double.infinity,

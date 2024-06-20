@@ -1,4 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:graduate/firstpage.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/screens/users/tab_bar_trainee.dart';
 import 'package:graduate/services/dio_helper.dart';
@@ -29,8 +30,8 @@ class MyApp extends StatelessWidget {
         '/logintrainee': (context) => const LoginTrainee(),
         '/sign_uptrainee': (context) => const SignUpTrainee(),
         '/sign_updoctor': (context) => const SignUPDoctor(),
-        '/NavDo': (context) =>  NavBarDo(),
-        '/NavTr': (context) =>  NavBarTR(),
+        '/NavDo': (context) => NavBarDo(),
+        '/NavTr': (context) => NavBarTR(),
       },
       theme: ThemeData(
           colorScheme: const ColorScheme(
@@ -52,11 +53,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class SplachScreen extends StatelessWidget {
+class SplachScreen extends StatefulWidget {
   const SplachScreen({super.key});
 
   @override
+  State<SplachScreen> createState() => _SplachScreenState();
+}
+
+class _SplachScreenState extends State<SplachScreen> {
+  @override
   Widget build(BuildContext context) {
+    setState(() {
+      token;
+      isDoctor;
+    });
     return Scaffold(
       body: Stack(
         children: [
@@ -65,7 +75,8 @@ class SplachScreen extends StatelessWidget {
               'assets/splash.json',
             ),
             backgroundColor: const Color.fromARGB(255, 39, 34, 34),
-            nextScreen: NavBarTR(),
+            nextScreen: token == '' ? const FirstPage() :  isDoctor=='doc' ? NavBarDo() : NavBarTR(),
+
             duration: 3000,
             splashTransition: SplashTransition.fadeTransition,
             splashIconSize: 350,
@@ -73,7 +84,7 @@ class SplachScreen extends StatelessWidget {
             animationDuration: const Duration(seconds: 3),
           ),
           const Padding(
-            padding: EdgeInsets.only(top:50,left: 10),
+            padding: EdgeInsets.only(top: 50, left: 10),
             child: Text(
               'Welcome to our application\n\n                  S3ood',
               style: TextStyle(
@@ -83,7 +94,6 @@ class SplachScreen extends StatelessWidget {
               ),
             ),
           ),
-          
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/screens/users/play_video.dart';
 
 class ExerciseTr extends StatelessWidget {
   const ExerciseTr({super.key});
@@ -59,7 +60,12 @@ class ExerciseTr extends StatelessWidget {
                                 ),
                               ),
                               IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => const VideoPlayerScreen(),
+                                    ));
+                                  },
                                   icon: const Icon(
                                     Icons.play_arrow_rounded,
                                     color: baseColor,
@@ -293,8 +299,7 @@ class ExerciseTr extends StatelessWidget {
                           padding: EdgeInsets.only(left: 8.0),
                           child: Text(
                             'duration:    reps:    sets:    exercise:',
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.grey),
+                            style: TextStyle(fontSize: 18, color: Colors.grey),
                           ),
                         ),
                         const Padding(
@@ -351,8 +356,7 @@ class ExerciseTr extends StatelessWidget {
                           padding: EdgeInsets.only(left: 8.0),
                           child: Text(
                             'duration:    reps:    sets:    exercise:',
-                            style:
-                                TextStyle(fontSize: 18, color: Colors.grey),
+                            style: TextStyle(fontSize: 18, color: Colors.grey),
                           ),
                         ),
                         const Padding(

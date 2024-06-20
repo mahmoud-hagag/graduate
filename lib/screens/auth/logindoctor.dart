@@ -19,7 +19,7 @@ class LoginDoctor extends StatefulWidget {
 }
 
 class _LoginDoctorState extends State<LoginDoctor> {
-  TextEditingController username = TextEditingController();
+  TextEditingController phone = TextEditingController();
   bool isLoading = false;
   TextEditingController password = TextEditingController();
   GlobalKey<FormState> formState = GlobalKey<FormState>();
@@ -30,12 +30,13 @@ class _LoginDoctorState extends State<LoginDoctor> {
     setState(() {});
     if (formState.currentState!.validate()) {
       try {
-        var response = await _crud.postRequest(
-            linkLoginDo,{
-              "email": username.text,
-              "password" : password.text
-            });
-        if (response["expires_in"] == 3600) {
+        var response = await _crud.postRequest(linkLoginDo, {
+          "phone": phone.text,
+          "password": password.text,
+        });
+        if (response["status"]) {
+          token = response["token"]['original']['access_token'];
+          isDoctor = 'doc';
           // ignore: use_build_context_synchronously
           AwesomeDialog(
               context: context,
@@ -58,14 +59,14 @@ class _LoginDoctorState extends State<LoginDoctor> {
                   },
                 ),
               )).show();
-        } else if (response["error"]=="Unauthorized") {
+        } else if (!response["status"]) {
           // ignore: use_build_context_synchronously
           AwesomeDialog(
             context: context,
             dialogType: DialogType.error,
             animType: AnimType.rightSlide,
             title: 'Invalid Info ☠️',
-            desc: response["error"],
+            desc: response["msg"],
           ).show();
         }
       } catch (e) {
@@ -131,7 +132,7 @@ class _LoginDoctorState extends State<LoginDoctor> {
                         height: 20,
                       ),
                       const Text(
-                        'Email',
+                        'Phone',
                         style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -142,10 +143,10 @@ class _LoginDoctorState extends State<LoginDoctor> {
                       ),
                       CustomTextField(
                         obscureText: false,
-                        controller: username,
-                        label: 'Enter your email',
+                        controller: phone,
+                        label: 'Enter your phone',
                         icon: Icons.person_4_sharp,
-                        keyType: TextInputType.name,
+                        keyType: TextInputType.phone,
                         validator: (p0) {
                           if (p0 == "") {
                             return "can't to be empty";
@@ -181,6 +182,9 @@ class _LoginDoctorState extends State<LoginDoctor> {
                           }
                         },
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -201,31 +205,7 @@ class _LoginDoctorState extends State<LoginDoctor> {
                         ],
                       ),
                       const SizedBox(
-                        height: 20,
-                      ),
-                      const Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              thickness: 2.5,
-                            ),
-                          ),
-                          Text(
-                            '      Or with      ',
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 255, 255, 255),
-                                fontSize: 16),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              thickness: 2.5,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 50,
+                        height: 40,
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -274,3 +254,6 @@ class _LoginDoctorState extends State<LoginDoctor> {
     );
   }
 }
+
+String? token;
+String? isDoctor;

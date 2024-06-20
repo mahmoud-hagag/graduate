@@ -6,6 +6,7 @@ import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/text_field.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/constants/links.dart';
+import 'package:graduate/screens/auth/logindoctor.dart';
 import 'package:graduate/services/login.dart';
 
 // ignore: must_be_immutable
@@ -21,7 +22,6 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
 
   bool isLoading = false;
   late List<DropdownMenuEntry<dynamic>> dropdownMenuEntries;
-  TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController fName = TextEditingController();
   TextEditingController lName = TextEditingController();
@@ -37,15 +37,16 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
     setState(() {});
     if (formState.currentState!.validate()) {
       var response = await _crud.postRequest(linkSignUpTr, {
-        "email": username.text,
         "password": password.text,
         "firstName": fName.text,
         "lastName": lName.text,
-        // "phoneNumber": phoneNumber.text,
-        "Gender": gender.text,
+        "phone": phoneNumber.text,
+        "gender": gender.text,
         "disability": disAbility.text,
       });
-      if (response["expires_in"] == 3600) {
+      if (response["status"]) {
+        token = response["token"]['original']['access_token'];
+          isDoctor = 'user';
         // ignore: use_build_context_synchronously
         AwesomeDialog(
             context: context,
@@ -75,7 +76,7 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
           dialogType: DialogType.error,
           animType: AnimType.rightSlide,
           title: 'Invalid Info ☠️',
-          desc: response["message"],
+          desc: response["msg"],
         ).show();
       }
     } else {
@@ -125,7 +126,7 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
                         height: 10,
                       ),
                       const Text(
-                        'User Name',
+                        'Phone',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
@@ -133,7 +134,7 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
                       CustomTextField(
                         validator: (p0) {
@@ -143,10 +144,10 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
                             return null;
                           }
                         },
-                        controller: username,
-                        label: 'Enter your User Name',
-                        icon: Icons.person_rounded,
-                        keyType: TextInputType.name,
+                        controller: phoneNumber,
+                        label: 'Enter your Phone Number',
+                        icon: Icons.phone_enabled,
+                        keyType: TextInputType.phone,
                         obscureText: false,
                       ),
                       const SizedBox(
@@ -318,35 +319,7 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
                         ],
                       ),
                       const SizedBox(
-                        height: 5,
-                      ),
-                      const Text(
-                        'Phone',
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      CustomTextField(
-                        validator: (p0) {
-                          if (p0 == "") {
-                            return "can't to be empty";
-                          } else {
-                            return null;
-                          }
-                        },
-                        controller: phoneNumber,
-                        label: 'Enter your Phone Number',
-                        icon: Icons.phone_enabled,
-                        keyType: TextInputType.phone,
-                        obscureText: false,
-                      ),
-                      const SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
                       SizedBox(
                         width: double.infinity,

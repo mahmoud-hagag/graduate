@@ -32,11 +32,13 @@ dependencies:
   awesome_dialog: ^3.2.0
   cupertino_icons: ^1.0.6
   dio: ^5.4.3+1
+  flick_video_player: ^0.8.0
   flutter:
     sdk: flutter
   http: ^1.0.0
   lottie: ^3.1.0
   syncfusion_flutter_charts: ^25.1.35
+  video_player: ^2.8.2
 
 dev_dependencies:
   flutter_lints: ^3.0.0
