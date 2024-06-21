@@ -18,7 +18,7 @@ class _ProgressState extends State<Progress> {
     data = [
       _ChartData(
         'week 1',
-        225,
+        215,
       ),
       _ChartData(
         'week 2',
@@ -56,7 +56,7 @@ class _ProgressState extends State<Progress> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Header(
                 'Progress',
@@ -72,28 +72,38 @@ class _ProgressState extends State<Progress> {
                 ),
               ),
               const SizedBox(
-                height: 10,
+                height: 50,
               ),
-              SfCartesianChart(
-                plotAreaBorderWidth: 0,
-                primaryXAxis: const CategoryAxis(),
-                primaryYAxis:
-                    const NumericAxis(minimum: 0, maximum: 250, interval: 25),
-                tooltipBehavior: _tooltip,
-                series: <CartesianSeries<_ChartData, String>>[
-                  ColumnSeries<_ChartData, String>(
-                      dataSource: data,
-                      xValueMapper: (_ChartData data, _) => data.x,
-                      yValueMapper: (_ChartData data, _) => data.y,
-                      name: 'Progress',
-                      color: baseColor)
-                ],
+              SizedBox(
+                height: 500,
+                child: SfCartesianChart(
+                  plotAreaBorderWidth: 0,
+                  primaryXAxis: const CategoryAxis(),
+                  primaryYAxis:
+                      const NumericAxis(minimum: 0, maximum: 250, interval: 25),
+                  tooltipBehavior: _tooltip,
+                  series: <CartesianSeries<_ChartData, String>>[
+                    ColumnSeries<_ChartData, String>(
+                        dataSource: data,
+                        xValueMapper: (_ChartData data, _) => data.x,
+                        yValueMapper: (_ChartData data, _) => data.y,
+                        name: 'Progress',
+                        color: baseColor)
+                  ],
+                ),
               ),
-              const Text('weekly moves log'),
-              ////////////
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                'Do More...',
+                style: TextStyle(
+                  fontSize: 24,
+                ),
+              ),
             ],
           ),
-        ),  
+        ),
       ),
     );
   }

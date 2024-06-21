@@ -3,10 +3,9 @@ import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/screens/auth/logindoctor.dart';
-import 'package:graduate/screens/doctors/create_program.dart';
+import 'package:graduate/screens/doctors/programs/create_program.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
-import 'package:graduate/screens/doctors/view_patients.dart';
+import 'package:graduate/screens/doctors/view_users/view_patients.dart';
 
 class HomeDo extends StatefulWidget {
   const HomeDo({super.key});

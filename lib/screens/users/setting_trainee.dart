@@ -5,10 +5,11 @@ import 'package:graduate/components/header.dart';
 import 'package:graduate/components/setting_menu.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/screens/auth/logindoctor.dart';
+import 'package:graduate/constants/variables.dart';
 import 'package:graduate/screens/chats/home.dart';
 import 'package:graduate/screens/doctors/helps.dart';
 import 'package:graduate/screens/users/tab_bar_trainee.dart';
+import 'package:graduate/services/cache_helper.dart';
 
 class SettingTr extends StatefulWidget {
   const SettingTr({super.key});
@@ -19,22 +20,72 @@ class SettingTr extends StatefulWidget {
 
 class _SettingTrState extends State<SettingTr> {
   bool isLoading = false;
+  void viewProfile() async {
+    setState(() {});
+    try {
+      uId = CacheHelper.getData(key: 'uId');
+      var response = await Dio().post(
+        'http://10.0.2.2:8000/api/auth/user/userProfile',
+        options: Options(
+          headers: {'Authorization': 'Bearer $uId'},
+        ),
+        data: {},
+      );
+      if (response.data["status"]) {
+        // ignore: use_build_context_synchronously
+        AwesomeDialog(
+            context: context,
+            dialogType: DialogType.infoReverse,
+            animType: AnimType.rightSlide,
+            title:
+                "First Name: ${response.data['user']['firstName']}\n\nLast Name: ${response.data['user']['lastName']}\n\nPhone: ${response.data['user']['phone']}\n\nGender: ${response.data['user']['gender']}\n\nDisability: ${response.data['user']['disability']}",
+            desc:
+                '\nCreated at: ${response.data['user']['created_at'].toString().substring(0, 10)}\nto back press anywhere or press ok',
+            btnOk: Center(
+              child: TextButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(baseColor)),
+                child: const Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            )).show();
+      } else if (!response.data["status"]) {
+        // ignore: use_build_context_synchronously
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Invalid Info ☠️',
+          desc: response.data["error"],
+        ).show();
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print("Exception $e");
+    }
+  }
 
   Future<void> logoutUser() async {
     isLoading = true;
     setState(() {});
     try {
+      uId = CacheHelper.getData(key: 'uId');
       var response = await Dio().post(
         'http://10.0.2.2:8000/api/auth/user/logout',
         options: Options(
-          headers: {'Authorization': 'Bearer $token'},
+          headers: {'Authorization': 'Bearer $uId'},
         ),
         data: {},
       );
       if (response.data["status"]) {
         setState(() {
-          token = '';
-          isDoctor = '';
+          CacheHelper.removeData(key: 'uId');
+          CacheHelper.removeDataD(isDo: 'isD');
         });
         // ignore: use_build_context_synchronously
         AwesomeDialog(
@@ -109,9 +160,8 @@ class _SettingTrState extends State<SettingTr> {
                 SettingMenuWidget(
                   title: "Account",
                   icon: Icons.person_4,
-                  onPress: () {
-                    print(token);
-                    print(isDoctor);
+                  onPress: () async {
+                    viewProfile();
                   },
                 ),
                 const SizedBox(
@@ -177,14 +227,20 @@ class _SettingTrState extends State<SettingTr> {
                 const SizedBox(
                   height: 30,
                 ),
-                SettingMenuWidget(
-                  title: "Logout",
-                  icon: Icons.logout_rounded,
-                  onPress: () async {
-                    await logoutUser();
-                  },
-                  textColor: Colors.red,
-                  iconColor: Colors.red,
+                GestureDetector(
+                  onDoubleTap: () {
+                          CacheHelper.removeData(key: 'uId');
+                          Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
+                        },
+                  child: SettingMenuWidget(
+                    title: "Logout",
+                    icon: Icons.logout_rounded,
+                    onPress: () async {
+                      await logoutUser();
+                    },
+                    textColor: Colors.red,
+                    iconColor: Colors.red,
+                  ),
                 ),
                 const SizedBox(
                   height: 30,

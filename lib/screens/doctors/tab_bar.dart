@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/screens/doctors/homepage.dart';
-import 'package:graduate/screens/doctors/profile.dart';
+import 'package:graduate/screens/profiles/profile.dart';
 import 'package:graduate/screens/doctors/search.dart';
 import 'package:graduate/screens/doctors/setting.dart';
-import 'package:graduate/screens/doctors/workout.dart';
+import 'package:graduate/screens/doctors/show_workouts/workout.dart';
 
 // ignore: must_be_immutable
 class NavBarDo extends StatelessWidget {
@@ -23,12 +23,12 @@ class NavBarDo extends StatelessWidget {
       initialIndex: currentIndex??0,
       length: 5,
       child: Scaffold(
-        body: const TabBarView(children: [
+        body:   const TabBarView(children: [
           HomeDo(),
           WorkOut(),
           Setting(),
           Search(),
-          Profile(),
+          ProfileDo(),
         ]),
         bottomNavigationBar: Container(
           height: 70,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/custom_page_view.dart';
-import 'package:graduate/components/header.dart';
+import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/screens/users/programs.dart';
@@ -24,9 +24,15 @@ class _HomeTrState extends State<HomeTr> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Header(
-                  'Dear !!',
-                  rightSide: GestureDetector(
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(
+                      width: 120,
+                      height: 110,
+                      child: Logo(),
+                    ),
+                    GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
@@ -41,6 +47,7 @@ class _HomeTrState extends State<HomeTr> {
                       isDoctor: false,
                     ),
                   ),
+                  ],
                 ),
                 const SizedBox(height: 20),
                 const SizedBox(

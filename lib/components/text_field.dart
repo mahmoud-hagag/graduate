@@ -13,11 +13,13 @@ class CustomTextField extends StatefulWidget {
     required this.icon,
     required this.validator,
     this.obscureText,
+    this.canEdit,
   });
   final String label;
   final TextInputType keyType;
   final TextEditingController controller;
   bool? obscureText ;
+  bool? canEdit ;
   IconData? icon;
   final String? Function(String?)? validator;
 
@@ -29,6 +31,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: widget.canEdit ?? true,
       autocorrect: true,
       enableSuggestions: true,
       validator: widget.validator,

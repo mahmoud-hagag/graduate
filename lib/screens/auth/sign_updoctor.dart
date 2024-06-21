@@ -6,7 +6,8 @@ import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/text_field.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/constants/links.dart';
-import 'package:graduate/screens/auth/logindoctor.dart';
+import 'package:graduate/constants/variables.dart';
+import 'package:graduate/services/cache_helper.dart';
 import 'package:graduate/services/login.dart';
 
 // ignore: must_be_immutable
@@ -41,8 +42,21 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
         "gender": gender.text,
       });
       if (response["status"]) {
-        token = response["token"]['original']['access_token'];
-          isDoctor = 'doc';
+        CacheHelper.setData(
+              key: 'uId',
+              value: response["token"]['original']['access_token'],
+            );
+            CacheHelper.setDataD(
+              isDo: 'isD',
+              vDo: 'doctor',
+            );
+            CacheHelper.setDataId(
+              key: 'id',
+              value: response["token"]['original']['user']['id'],
+            );
+          iD = CacheHelper.getDataId(key: 'id');
+          uId = CacheHelper.getData(key: 'uId');
+          isD = CacheHelper.getDataD(isDo: 'isD');
         // ignore: use_build_context_synchronously
         AwesomeDialog(
             context: context,
@@ -53,8 +67,7 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
             btnOk: Center(
               child: TextButton(
                 style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(
-                        baseColor)),
+                    backgroundColor: MaterialStatePropertyAll(baseColor)),
                 child: const Text(
                   'Ok',
                   style: TextStyle(color: Colors.white),

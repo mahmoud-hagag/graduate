@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/screens/doctors/programs/create_program.dart';
 
 // ignore: must_be_immutable
 class CustomCardProgram extends StatefulWidget {
   CustomCardProgram(
       {super.key,
+      this.countUnit=1,
       required this.counter,
       required this.name,
       required this.unit});
 
   String name;
   int counter;
+  int countUnit;
   String unit;
   @override
   State<CustomCardProgram> createState() => _CustomCardProgramState();
 }
 
 class _CustomCardProgramState extends State<CustomCardProgram> {
-  int _incrementCounter(int counter) {
-    ++counter;
+  int _incrementCounter(int counter,int countUnit) {
+    counter+=countUnit;
     return counter;
   }
 
-  int _decrementCounter(int counter) {
+  int _decrementCounter(int counter,int countUnit) {
     if (counter > 0) {
-      --counter;
+      counter-=countUnit;
     }
     return counter;
   }
@@ -49,7 +52,23 @@ class _CustomCardProgramState extends State<CustomCardProgram> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      widget.counter = _incrementCounter(widget.counter);
+                      if(widget.name=='Reps')
+                      {
+                        counterReps = _incrementCounter(widget.counter,widget.countUnit);
+                        widget.counter = _incrementCounter(widget.counter,widget.countUnit);
+                      }
+                      else if(widget.name=='Sets'){
+                        counterSets = _incrementCounter(widget.counter,widget.countUnit);
+                        widget.counter = _incrementCounter(widget.counter,widget.countUnit);
+                      }
+                      else if(widget.name=='Rest Time'){
+                        counterRest = _incrementCounter(widget.counter,widget.countUnit);
+                        widget.counter = _incrementCounter(widget.counter,widget.countUnit);
+                      }
+                      else{
+                        counterW = _incrementCounter(widget.counter,widget.countUnit);
+                        widget.counter = _incrementCounter(widget.counter,widget.countUnit);
+                      }
                     });
                   },
                   icon: const Icon(Icons.arrow_drop_up_rounded),
@@ -83,7 +102,23 @@ class _CustomCardProgramState extends State<CustomCardProgram> {
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      widget.counter = _decrementCounter(widget.counter);
+                      if(widget.name=='Reps')
+                      {
+                        counterReps = _decrementCounter(widget.counter,widget.countUnit);
+                        widget.counter = _decrementCounter(widget.counter,widget.countUnit);
+                      }
+                      else if(widget.name=='Sets'){
+                        counterSets = _decrementCounter(widget.counter,widget.countUnit);
+                        widget.counter = _decrementCounter(widget.counter,widget.countUnit);
+                      }
+                      else if(widget.name=='Rest Time'){
+                        counterRest = _decrementCounter(widget.counter,widget.countUnit);
+                        widget.counter = _decrementCounter(widget.counter,widget.countUnit);
+                      }
+                      else{
+                        counterW = _decrementCounter(widget.counter,widget.countUnit);
+                        widget.counter = _decrementCounter(widget.counter,widget.countUnit);
+                      }
                     });
                   },
                   icon: const Icon(Icons.arrow_drop_down_rounded),

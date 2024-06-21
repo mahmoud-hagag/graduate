@@ -5,10 +5,11 @@ import 'package:graduate/components/header.dart';
 import 'package:graduate/components/setting_menu.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/screens/auth/logindoctor.dart';
+import 'package:graduate/constants/variables.dart';
 import 'package:graduate/screens/chats/home.dart';
 import 'package:graduate/screens/doctors/helps.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
+import 'package:graduate/services/cache_helper.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -24,17 +25,18 @@ class _SettingState extends State<Setting> {
     isLoading = true;
     setState(() {});
     try {
+      uId = CacheHelper.getData(key: 'uId');
       var response = await Dio().post(
         'http://10.0.2.2:8000/api/auth/doctor/logout',
         options: Options(
-          headers: {'Authorization': 'Bearer $token'},
+          headers: {'Authorization': 'Bearer $uId'},
         ),
         data: {},
       );
       if (response.data["status"]) {
         setState(() {
-          token = '';
-          isDoctor = '';
+          CacheHelper.removeData(key: 'uId');
+          CacheHelper.removeDataD(isDo: 'isD');
         });
         // ignore: use_build_context_synchronously
         AwesomeDialog(
@@ -185,14 +187,20 @@ class _SettingState extends State<Setting> {
                       const SizedBox(
                         height: 30,
                       ),
-                      SettingMenuWidget(
-                        title: "Logout",
-                        icon: Icons.logout_rounded,
-                        onPress: () async {
-                          await logoutDoctor();
+                      GestureDetector(
+                        onDoubleTap: () {
+                          CacheHelper.removeData(key: 'uId');
+                          Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
                         },
-                        textColor: Colors.red,
-                        iconColor: Colors.red,
+                        child: SettingMenuWidget(
+                          title: "Logout",
+                          icon: Icons.logout_rounded,
+                          onPress: () async {
+                            await logoutDoctor();
+                          },
+                          textColor: Colors.red,
+                          iconColor: Colors.red,
+                        ),
                       ),
                       const SizedBox(
                         height: 30,

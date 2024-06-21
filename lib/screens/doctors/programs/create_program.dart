@@ -1,10 +1,14 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/custom_card_program.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/text_field.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/constants/variables.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
+import 'package:graduate/services/cache_helper.dart';
 
 class CreateProgram extends StatefulWidget {
   const CreateProgram({super.key});
@@ -19,13 +23,83 @@ class _CreateProgramState extends State<CreateProgram> {
   TextEditingController disAbility = TextEditingController();
   TextEditingController monthes = TextEditingController();
   TextEditingController title = TextEditingController();
+  TextEditingController link = TextEditingController();
   bool isSelectedG = true;
   bool isSelectedD = true;
   bool isSelectedM = true;
-  final int _counterReps = 0;
-  final int _counterSets = 0;
-  final int _counterW = 0;
-  final int _counterRest = 0;
+  @override
+  void initState() {
+    super.initState();
+    counterReps = 0;
+    counterSets = 0;
+    counterRest = 0;
+    counterW = 0;
+  }
+
+  creatprogram() async {
+    try {
+    CacheHelper.getData(key: 'uId');
+    var response = await Dio().post(
+      'http://10.0.2.2:8000/api/workout/create',
+      data: {
+        'name': title.text,
+        'description': 'description',
+        'goal': monthes.text,
+        'reps': counterReps,
+        'sets': counterSets,
+        'weight': counterW,
+        'rest': counterRest,
+        'link': link.text,
+        'completed_sets': 0,
+      },
+      options: Options(
+        headers: {'Authorization': 'Bearer $uId'},
+      ),
+    );
+    if (response.data["status"]) {
+      // ignore: use_build_context_synchronously
+      AwesomeDialog(
+          context: context,
+          dialogType: DialogType.success,
+          animType: AnimType.rightSlide,
+          title: 'Success 👀',
+          desc: response.data["msg"],
+          btnOk: Center(
+            child: TextButton(
+              style: const ButtonStyle(
+                  backgroundColor: MaterialStatePropertyAll(baseColor)),
+              child: const Text(
+                'Ok',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                // ignore: use_build_context_synchronously
+                Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => NavBarDo(
+                      currentIndex: 1,
+                    ),
+                  ),
+                  (route) => false,
+                );
+              },
+            ),
+          )).show();
+    } else if (!response.data["status"]) {
+      // ignore: use_build_context_synchronously
+      AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Invalid Info ☠️',
+        desc: response.data["msg"],
+      ).show();
+    }
+    }catch(_){
+
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,85 +127,6 @@ class _CreateProgramState extends State<CreateProgram> {
                 const SizedBox(
                   height: 10,
                 ),
-                Row(
-                  children: [
-                    DropdownMenu(
-                        width: 350,
-                        inputDecorationTheme: const InputDecorationTheme(
-                          fillColor: Colors.transparent,
-                          filled: false,
-                          enabledBorder: InputBorder.none,
-                        ),
-                        menuStyle: const MenuStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              Color.fromARGB(255, 120, 66, 3)),
-                          elevation: MaterialStatePropertyAll(6),
-                        ),
-                        hintText: "Gender",
-                        controller: gender,
-                        errorText: !isSelectedG ? 'choose!!' : null,
-                        onSelected: (value) {
-                          setState(() {
-                            isSelectedG = true;
-                            gender.text = value.toString();
-                          });
-                        },
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        dropdownMenuEntries: dropdownMenuEntries = [
-                          const DropdownMenuEntry(value: 'male', label: "Male"),
-                          const DropdownMenuEntry(
-                              value: 'female', label: "Female"),
-                        ]),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    DropdownMenu(
-                        inputDecorationTheme: const InputDecorationTheme(
-                          fillColor: Colors.transparent,
-                          filled: false,
-                          enabledBorder: InputBorder.none,
-                        ),
-                        width: 350,
-                        menuStyle: const MenuStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              Color.fromARGB(255, 120, 66, 3)),
-                          elevation: MaterialStatePropertyAll(6),
-                        ),
-                        controller: disAbility,
-                        errorText: !isSelectedD ? 'choose!!' : null,
-                        hintText: "Disability",
-                        onSelected: (value) {
-                          setState(() {
-                            isSelectedD = true;
-                            disAbility.text = value.toString();
-                          });
-                        },
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        dropdownMenuEntries: dropdownMenuEntries = [
-                          const DropdownMenuEntry(
-                              value: 'upper', label: "Upper"),
-                          const DropdownMenuEntry(
-                              value: 'lower', label: "Lower"),
-                          const DropdownMenuEntry(value: 'arm', label: "Arm"),
-                          const DropdownMenuEntry(value: 'leg', label: "Leg"),
-                        ]),
-                  ],
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
                 const Text(
                   'Regular exercise',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
@@ -142,6 +137,22 @@ class _CreateProgramState extends State<CreateProgram> {
                 CustomTextField(
                   label: 'Enter a title for the exercise',
                   controller: title,
+                  icon: null,
+                  validator: null,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const Text(
+                  'Link Video',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                CustomTextField(
+                  label: 'Enter a link of video',
+                  controller: link,
                   icon: null,
                   validator: null,
                 ),
@@ -173,10 +184,8 @@ class _CreateProgramState extends State<CreateProgram> {
                         errorText: !isSelectedM ? 'choose!!' : null,
                         hintText: "monthes",
                         onSelected: (value) {
-                          setState(() {
-                            isSelectedM = true;
-                            monthes.text = value.toString();
-                          });
+                          isSelectedM = true;
+                          monthes.text = value.toString();
                         },
                         textStyle: const TextStyle(
                           color: Colors.white,
@@ -191,19 +200,22 @@ class _CreateProgramState extends State<CreateProgram> {
                         ]),
                   ],
                 ),
+                const SizedBox(
+                  height: 10,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     CustomCardProgram(
-                      counter: _counterReps,
+                      counter: counterReps,
                       name: 'Reps',
                       unit: 'reps',
                     ),
                     CustomCardProgram(
-                  counter: _counterSets,
-                  name: 'Sets',
-                  unit: 'sets',
-                ),
+                      counter: counterSets,
+                      name: 'Sets',
+                      unit: 'sets',
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -213,15 +225,16 @@ class _CreateProgramState extends State<CreateProgram> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     CustomCardProgram(
-                      counter: _counterRest,
+                      countUnit: 5,
+                      counter: counterRest,
                       name: 'Rest Time',
                       unit: 'S',
                     ),
                     CustomCardProgram(
-                  counter: _counterW,
-                  name: 'Weight',
-                  unit: 'lbs',
-                ),
+                      counter: counterW,
+                      name: 'Weight',
+                      unit: 'lbs',
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -233,16 +246,8 @@ class _CreateProgramState extends State<CreateProgram> {
                     text: 'Create Program',
                     color1: color1Button,
                     color2: color2Button,
-                    onTab: () {
-                      // do function to submit program
-                      Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                builder: (context) => NavBarDo(
-                                  currentIndex: 1,
-                                ),
-                              ),
-                              (route) => false,
-                            );
+                    onTab: () async {
+                      creatprogram();
                     },
                   ),
                 ),
@@ -254,3 +259,8 @@ class _CreateProgramState extends State<CreateProgram> {
     );
   }
 }
+
+int counterReps = 0;
+int counterSets = 0;
+int counterW = 0;
+int counterRest = 0;

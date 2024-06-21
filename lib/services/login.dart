@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:graduate/screens/auth/logindoctor.dart';
 import 'package:http/http.dart' as http;
 
 class Crud {
@@ -18,9 +17,6 @@ class Crud {
   postRequest(String url, Map data) async {
     await Future.delayed(const Duration(seconds: 2));
     final response = await http.post(Uri.parse(url),
-        headers: {
-          'Authorization': 'Bearer $token',
-        },
         body: data);
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

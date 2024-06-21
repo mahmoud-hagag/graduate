@@ -1,7 +1,10 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:flutter/foundation.dart';
+import 'package:graduate/constants/variables.dart';
 import 'package:graduate/firstpage.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/screens/users/tab_bar_trainee.dart';
+import 'package:graduate/services/cache_helper.dart';
 import 'package:graduate/services/dio_helper.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
@@ -13,9 +16,16 @@ import 'package:graduate/screens/auth/sign_updoctor.dart';
 import 'package:graduate/screens/auth/sign_uptrainee.dart';
 import 'package:lottie/lottie.dart';
 
-void main() {
+void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
+  await CacheHelper.init();
+   uId = CacheHelper.getData(key: 'uId');
+   isD = CacheHelper.getDataD(isDo: 'isD');
+  if (kDebugMode) {
+    print(uId);
+    print(isD);
+  }
   runApp(const MyApp());
 }
 
@@ -47,7 +57,7 @@ class MyApp extends StatelessWidget {
               surface: backGround,
               onSurface: Colors.white)),
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'So3od',
       home: const SplachScreen(),
     );
   }
@@ -63,10 +73,6 @@ class SplachScreen extends StatefulWidget {
 class _SplachScreenState extends State<SplachScreen> {
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      token;
-      isDoctor;
-    });
     return Scaffold(
       body: Stack(
         children: [
@@ -75,8 +81,11 @@ class _SplachScreenState extends State<SplachScreen> {
               'assets/splash.json',
             ),
             backgroundColor: const Color.fromARGB(255, 39, 34, 34),
-            nextScreen: token == '' ? const FirstPage() :  isDoctor=='doc' ? NavBarDo() : NavBarTR(),
-
+            nextScreen: CacheHelper.getData(key: 'uId') == null
+                ? const FirstPage()
+                : CacheHelper.getData(key: 'isD') == 'doctor'
+                    ? NavBarDo()
+                    : NavBarTR(),
             duration: 3000,
             splashTransition: SplashTransition.fadeTransition,
             splashIconSize: 350,
