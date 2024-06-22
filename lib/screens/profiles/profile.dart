@@ -33,9 +33,9 @@ class _ProfileDoState extends State<ProfileDo> {
             dialogType: DialogType.infoReverse,
             animType: AnimType.rightSlide,
             title:
-                "First Name: ${response.data['user']['firstName']}\n\nLast Name: ${response.data['user']['lastName']}\n\nPhone: ${response.data['user']['phone']}\n\nGender: ${response.data['user']['gender']}",
+                "First Name: ${response.data['doctor']['firstName']}\n\nLast Name: ${response.data['doctor']['lastName']}\n\nPhone: 0${response.data['doctor']['mobile']}\n\nGender: ${response.data['doctor']['gender']}",
             desc:
-                '\nCreated at: ${response.data['user']['created_at'].toString().substring(0, 10)}\nto back press anywhere or press ok',
+                '\nCreated at: ${response.data['doctor']['created_at'].toString().substring(0, 10)}\nto back press anywhere or press ok',
             btnOk: Center(
               child: TextButton(
                 style: const ButtonStyle(

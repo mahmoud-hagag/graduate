@@ -5,7 +5,7 @@ import 'package:graduate/screens/users/homepage_trainee.dart';
 import 'package:graduate/screens/profiles/profile_trainee.dart';
 import 'package:graduate/screens/users/search_trainee.dart';
 import 'package:graduate/screens/users/setting_trainee.dart';
-import 'package:graduate/screens/users/show_workouts/workout_trainee.dart';
+import 'package:graduate/screens/users/show_programs/program_trainee.dart';
 
 // ignore: must_be_immutable
 class NavBarTR extends StatelessWidget {
@@ -20,7 +20,7 @@ class NavBarTR extends StatelessWidget {
       child: Scaffold(
         body:  const TabBarView(children: [
           HomeTr(),
-          WorkOutTR(),
+          ProgramTr(),
           SettingTr(),
           SearchTr(),
           ProfileTr(),

@@ -1,24 +1,24 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:graduate/components/custom_workout_select.dart';
 import 'package:graduate/components/header.dart';
-import 'package:graduate/constants/colors.dart';
-import 'package:graduate/models/day_model.dart';
-import 'package:graduate/models/workout_model.dart';
-import 'package:graduate/screens/doctors/show_workouts/get_all_workouts.dart';
+import 'package:graduate/components/user_photo.dart';
+import 'package:graduate/models/programs_model.dart';
+import 'package:graduate/screens/doctors/programs/custom_program_card.dart';
+import 'package:graduate/screens/doctors/programs/get_all_programs.dart';
+import 'package:graduate/screens/doctors/tab_bar.dart';
 
-// ignore: must_be_immutable
-class AttachWorkout extends StatefulWidget {
-  AttachWorkout({super.key,required this.day});
+class Programs extends StatefulWidget {
+  const Programs({super.key});
 
-  DayModel day;
   @override
-  State<AttachWorkout> createState() => _AttachWorkoutState();
+  State<Programs> createState() => _ProgramsState();
 }
 
-class _AttachWorkoutState extends State<AttachWorkout> {
+class _ProgramsState extends State<Programs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
@@ -26,15 +26,20 @@ class _AttachWorkoutState extends State<AttachWorkout> {
             child: Column(
               children: [
                 Header(
-                  'choose workout',
-                  rightSide: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
+                  'Programs',
+                  rightSide: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (context) => NavBarDo(
+                            currentIndex: 4,
+                          ),
+                        ),
+                        (route) => false,
+                      );
                     },
-                    icon: const Icon(
-                      size: 35,
-                      Icons.arrow_forward_ios_outlined,
-                      color: baseColor,
+                    child: UserPhoto(
+                      isDoctor: true,
                     ),
                   ),
                 ),
@@ -43,8 +48,8 @@ class _AttachWorkoutState extends State<AttachWorkout> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-                  child: FutureBuilder<List<WorkoutModel>>(
-                    future: GetAllWorkout().getAllWorkout(),
+                  child: FutureBuilder<List<ProgramModel>>(
+                    future: GetAllPrograms().getAllPrograms(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Padding(
@@ -55,16 +60,13 @@ class _AttachWorkoutState extends State<AttachWorkout> {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       } else if (snapshot.hasData) {
                         Future.delayed(const Duration(seconds: 2));
-                        List<WorkoutModel> workout = snapshot.data!;
+                        List<ProgramModel> program = snapshot.data!;
                         return ListView.builder(
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(),
-                          itemCount: workout.length,
+                          itemCount: program.length,
                           itemBuilder: (context, index) {
-                            return CustomWorkoutSelect(
-                              workout: workout[index],
-                              day: widget.day,
-                            );
+                            return CustomProgramCard(program: program[index]);
                           },
                         );
                       } else {

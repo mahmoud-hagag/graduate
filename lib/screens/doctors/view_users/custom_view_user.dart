@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/models/user_model.dart';
-import 'package:graduate/screens/doctors/show_workouts/attach_workout.dart';
+import 'package:graduate/screens/doctors/programs/attach_prgram.dart';
 
 // ignore: must_be_immutable
 class CustomViewCard extends StatefulWidget {
@@ -67,8 +67,8 @@ class _CustomViewCardState extends State<CustomViewCard> {
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) =>AttachWorkout(
-                              id: widget.user.id,
+                            builder: (context) =>AttachProgram(
+                              user: widget.user,
                             ),
                           ),
                         );

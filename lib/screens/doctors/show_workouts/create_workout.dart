@@ -10,14 +10,14 @@ import 'package:graduate/constants/variables.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/services/cache_helper.dart';
 
-class CreateProgram extends StatefulWidget {
-  const CreateProgram({super.key});
+class CreateWorkout extends StatefulWidget {
+  const CreateWorkout({super.key});
 
   @override
-  State<CreateProgram> createState() => _CreateProgramState();
+  State<CreateWorkout> createState() => _CreateWorkoutState();
 }
 
-class _CreateProgramState extends State<CreateProgram> {
+class _CreateWorkoutState extends State<CreateWorkout> {
   late List<DropdownMenuEntry<dynamic>> dropdownMenuEntries;
   TextEditingController gender = TextEditingController();
   TextEditingController disAbility = TextEditingController();
@@ -38,7 +38,7 @@ class _CreateProgramState extends State<CreateProgram> {
 
   creatprogram() async {
     try {
-    CacheHelper.getData(key: 'uId');
+    uId = CacheHelper.getData(key: 'uId');
     var response = await Dio().post(
       'http://10.0.2.2:8000/api/workout/create',
       data: {
@@ -112,7 +112,7 @@ class _CreateProgramState extends State<CreateProgram> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Header(
-                  'Create Program',
+                  'Create workout',
                   rightSide: IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -243,7 +243,7 @@ class _CreateProgramState extends State<CreateProgram> {
                 SizedBox(
                   width: double.infinity,
                   child: CustomButton(
-                    text: 'Create Program',
+                    text: 'Create Workout',
                     color1: color1Button,
                     color2: color2Button,
                     onTab: () async {

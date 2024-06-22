@@ -1,11 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/search_text.dart';
 import 'package:graduate/components/user_photo.dart';
+import 'package:graduate/constants/colors.dart';
 import 'package:graduate/models/user_model.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/screens/doctors/view_users/get_all_users.dart';
+import 'package:graduate/screens/doctors/view_users/view_patients.dart';
 
 class Search extends StatefulWidget {
   const Search({super.key});
@@ -46,8 +49,8 @@ class _SearchState extends State<Search> {
   void onQueryChanged(String query) {
     setState(() {
       searchResults = users
-          .where((user) =>
-              user.name.toLowerCase().contains(query.toLowerCase()))
+          .where(
+              (user) => user.name.toLowerCase().contains(query.toLowerCase()))
           .toList();
     });
   }
@@ -80,7 +83,20 @@ class _SearchState extends State<Search> {
                 ),
               ),
               const SizedBox(
-                height: 60,
+                height: 30,
+              ),
+              CustomButton(
+                      text: 'view all users',
+                      onTab: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const ViewAllPatients(),
+                        ));
+                      },
+                      color1: baseColor,
+                      color2: baseColor,
+                    ),
+              const SizedBox(
+                height: 30,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),

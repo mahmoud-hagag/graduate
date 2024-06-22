@@ -33,7 +33,7 @@ class _LoginDoctorState extends State<LoginDoctor> {
     if (formState.currentState!.validate()) {
       try {
         var response = await _crud.postRequest(linkLoginDo, {
-          "phone": phone.text,
+          "mobile": phone.text,
           "password": password.text,
         });
         if (response["status"]) {

@@ -1,31 +1,31 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/models/day_model.dart';
-import 'package:graduate/models/workout_model.dart';
+import 'package:graduate/models/doctor_model.dart';
+import 'package:graduate/services/cache_helper.dart';
 
 // ignore: must_be_immutable
-class CustomWorkoutSelect extends StatefulWidget {
-  CustomWorkoutSelect({
+class CustomViewCardDoctor extends StatefulWidget {
+  CustomViewCardDoctor({
     super.key,
-    required this.workout,
-    required this.day,
+    required this.user,
   });
 
-  WorkoutModel workout;
-  DayModel day;
+  DoctorModel user;
   @override
-  State<CustomWorkoutSelect> createState() => _CustomWorkoutSelectState();
+  State<CustomViewCardDoctor> createState() => _CustomViewCardDoctorState();
 }
 
-class _CustomWorkoutSelectState extends State<CustomWorkoutSelect> {
-  attachworkout() async {
+class _CustomViewCardDoctorState extends State<CustomViewCardDoctor> {
+  attachDoctor() async {
+    int uId = CacheHelper.getDataId(key: 'id');
     try {
-      var response =
-          await Dio().post('http://10.0.2.2:8000/api/days/attach', data: {
-        'workout_id': widget.workout.id,
-        'day_id': widget.day.id,
+      var response = await Dio()
+          .post('http://10.0.2.2:8000/api/userDoctors/attach', data: {
+        'doctor_id': widget.user.id,
+        'user_id': uId,
       });
       if (response.data["status"]) {
         // ignore: use_build_context_synchronously
@@ -69,60 +69,60 @@ class _CustomWorkoutSelectState extends State<CustomWorkoutSelect> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.all(8.0),
       child: Card(
-        elevation: .7,
+        elevation: 1.5,
         child: SizedBox(
           width: double.infinity,
-          height: 150,
+          height: 160,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 10, left: 20),
+                padding: const EdgeInsets.only(top: 20, left: 20, bottom: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.workout.name,
+                      widget.user.name,
                       style: const TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    IconButton(
+                    Padding(
+                      padding: const EdgeInsets.only(right: 18.0),
+                      child: IconButton(
                         onPressed: () async {
-                          await attachworkout();
+                          await attachDoctor();
                         },
                         icon: const Icon(
-                          Icons.check_circle_outline_rounded,
+                          Icons.add_circle_rounded,
+                          size: 40,
                           color: baseColor,
-                          size: 35,
-                        ))
+                        ),
+                      ),
+                    )
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text(
-                  'duration:    reps:    sets:    exercise:',
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
-                ),
-              ),
               Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '${widget.workout.weight}            ${widget.workout.reps}         ${widget.workout.sets}          ${widget.workout.id}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      child: UserPhoto(isDoctor: true),
+                    ),
+                    const Text(
+                      'follow',
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: baseColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(
-                height: 10,
               ),
             ],
           ),

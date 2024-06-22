@@ -35,7 +35,7 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
     setState(() {});
     if (formState.currentState!.validate()) {
       var response = await _crud.postRequest(linkSignUpDo, {
-        "phone": phoneNumber.text,
+        "mobile": phoneNumber.text,
         "password": password.text,
         "firstName": fName.text,
         "lastName": lName.text,

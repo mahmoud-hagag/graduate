@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/custom_button.dart';
-import 'package:graduate/components/header.dart';
+import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/screens/doctors/programs/create_program.dart';
+import 'package:graduate/screens/doctors/create_attach.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/screens/doctors/view_users/view_patients.dart';
+import 'package:graduate/screens/users/show_doctors/show_doctors.dart';
 
 class HomeDo extends StatefulWidget {
   const HomeDo({super.key});
@@ -25,9 +26,15 @@ class _HomeDoState extends State<HomeDo> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Header(
-                  'Dear 7oda',
-                  rightSide: GestureDetector(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(
+                      width: 120,
+                      height: 110,
+                      child: Logo(),
+                    ),
+                    GestureDetector(
                     onTap: () {
                       Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
@@ -42,6 +49,7 @@ class _HomeDoState extends State<HomeDo> {
                       isDoctor: true,
                     ),
                   ),
+                  ],
                 ),
                 const SizedBox(height: 20),
                 Card(
@@ -116,7 +124,7 @@ class _HomeDoState extends State<HomeDo> {
                         const Padding(
                           padding: EdgeInsets.only(top: 20, left: 20),
                           child: Text(
-                            'Patients',
+                            'Users',
                             style: TextStyle(
                               fontSize: 26,
                               fontWeight: FontWeight.bold,
@@ -132,7 +140,7 @@ class _HomeDoState extends State<HomeDo> {
                             const Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Text(
-                                'See patients from here',
+                                'See users from here',
                                 style: TextStyle(
                                   fontSize: 18,
                                 ),
@@ -199,14 +207,10 @@ class _HomeDoState extends State<HomeDo> {
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (context) => NavBarDo(
-                                        currentIndex: 3,
-                                      ),
-                                    ),
-                                    (route) => false,
-                                  );
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ViewAllDoctors(),
+                                  ));
                                 },
                                 child: const SizedBox(
                                   width: 50,
@@ -231,7 +235,7 @@ class _HomeDoState extends State<HomeDo> {
                         text: '+ Create new plan',
                         onTab: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const CreateProgram(),
+                            builder: (context) => const CreateAttach(),
                           ));
                         },
                         color1: color1Button,

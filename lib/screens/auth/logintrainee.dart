@@ -30,12 +30,12 @@ class _LoginTraineeState extends State<LoginTrainee> {
     if (formState.currentState!.validate()) {
       try {
         var response = await _crud.postRequest(
-            linkLoginTr, {"phone": phone.text, "password": password.text});
+            linkLoginTr, {"mobile": phone.text, "password": password.text});
         if (response["status"]) {
           setState(() {
             CacheHelper.setData(
               key: 'uId',
-              value: response["token"]['original']['access_token'],
+              value: response['data']["token"]['original']['access_token'],
             );
             CacheHelper.setDataD(
               isDo: 'isD',
@@ -43,7 +43,7 @@ class _LoginTraineeState extends State<LoginTrainee> {
             );
             CacheHelper.setDataId(
               key: 'id',
-              value: response["token"]['original']['user']['id'],
+              value: response['data']["token"]['original']['user']['id'],
             );
           iD = CacheHelper.getDataId(key: 'id');
           uId = CacheHelper.getData(key: 'uId');

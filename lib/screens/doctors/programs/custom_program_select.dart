@@ -2,31 +2,38 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/models/day_model.dart';
-import 'package:graduate/models/workout_model.dart';
+import 'package:graduate/constants/variables.dart';
+import 'package:graduate/models/programs_model.dart';
+import 'package:graduate/models/user_model.dart';
+import 'package:graduate/services/cache_helper.dart';
 
 // ignore: must_be_immutable
-class CustomWorkoutSelect extends StatefulWidget {
-  CustomWorkoutSelect({
+class CustomProgramSelect extends StatefulWidget {
+  CustomProgramSelect({
     super.key,
-    required this.workout,
-    required this.day,
+    required this.program,
+    required this.user,
   });
 
-  WorkoutModel workout;
-  DayModel day;
+  ProgramModel program;
+  UserModel user;
   @override
-  State<CustomWorkoutSelect> createState() => _CustomWorkoutSelectState();
+  State<CustomProgramSelect> createState() => _CustomProgramSelectState();
 }
 
-class _CustomWorkoutSelectState extends State<CustomWorkoutSelect> {
-  attachworkout() async {
+class _CustomProgramSelectState extends State<CustomProgramSelect> {
+  attachProgram() async {
+    uId = CacheHelper.getData(key: 'uId');
     try {
       var response =
-          await Dio().post('http://10.0.2.2:8000/api/days/attach', data: {
-        'workout_id': widget.workout.id,
-        'day_id': widget.day.id,
-      });
+          await Dio().post('http://10.0.2.2:8000/api/userPrograms/attach',
+              options: Options(
+                headers: {'Authorization': 'Bearer $uId'},
+              ),
+              data: {
+            'program_id': widget.program.id,
+            'user_id': widget.user.id,
+          });
       if (response.data["status"]) {
         // ignore: use_build_context_synchronously
         AwesomeDialog(
@@ -74,7 +81,7 @@ class _CustomWorkoutSelectState extends State<CustomWorkoutSelect> {
         elevation: .7,
         child: SizedBox(
           width: double.infinity,
-          height: 150,
+          height: 100,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -84,7 +91,7 @@ class _CustomWorkoutSelectState extends State<CustomWorkoutSelect> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      widget.workout.name,
+                      widget.program.name,
                       style: const TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
@@ -92,7 +99,7 @@ class _CustomWorkoutSelectState extends State<CustomWorkoutSelect> {
                     ),
                     IconButton(
                         onPressed: () async {
-                          await attachworkout();
+                          await attachProgram();
                         },
                         icon: const Icon(
                           Icons.check_circle_outline_rounded,
@@ -101,28 +108,6 @@ class _CustomWorkoutSelectState extends State<CustomWorkoutSelect> {
                         ))
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8.0),
-                child: Text(
-                  'duration:    reps:    sets:    exercise:',
-                  style: TextStyle(fontSize: 18, color: Colors.grey),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '${widget.workout.weight}            ${widget.workout.reps}         ${widget.workout.sets}          ${widget.workout.id}',
-                  style: const TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
               ),
             ],
           ),

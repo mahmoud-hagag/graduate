@@ -6,7 +6,7 @@ class WorkoutModel {
   final int reps;
   final int sets;
   final int weight;
-  final int completSets;
+  int completSets;
   final int rests;
 
   WorkoutModel({

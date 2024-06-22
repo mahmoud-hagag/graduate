@@ -7,7 +7,7 @@ import 'package:graduate/screens/doctors/homepage.dart';
 import 'package:graduate/screens/profiles/profile.dart';
 import 'package:graduate/screens/doctors/search.dart';
 import 'package:graduate/screens/doctors/setting.dart';
-import 'package:graduate/screens/doctors/show_workouts/workout.dart';
+import 'package:graduate/screens/doctors/programs/programs.dart';
 
 // ignore: must_be_immutable
 class NavBarDo extends StatelessWidget {
@@ -25,7 +25,7 @@ class NavBarDo extends StatelessWidget {
       child: Scaffold(
         body:   const TabBarView(children: [
           HomeDo(),
-          WorkOut(),
+          Programs(),
           Setting(),
           Search(),
           ProfileDo(),

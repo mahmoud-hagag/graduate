@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/models/workout_model.dart';
-import 'package:graduate/screens/doctors/show_workouts/get_all_workouts.dart';
-import 'package:graduate/screens/users/show_workouts/custom_workout_card.dart';
+import 'package:graduate/models/programs_model.dart';
+import 'package:graduate/models/user_model.dart';
+import 'package:graduate/screens/doctors/programs/custom_program_select.dart';
+import 'package:graduate/screens/doctors/programs/get_all_programs.dart';
 
-class ExerciseTr extends StatelessWidget {
-  const ExerciseTr({super.key});
+// ignore: must_be_immutable
+class AttachProgram extends StatefulWidget {
+  AttachProgram({super.key,required this.user});
+  UserModel user;
+  @override
+  State<AttachProgram> createState() => _AttachProgramState();
+}
 
+class _AttachProgramState extends State<AttachProgram> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(top: 20, right: 8),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Header(
-                  'exercises',
+                  'choose program',
                   rightSide: IconButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -31,22 +37,13 @@ class ExerciseTr extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 50),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 1.5,
+                const SizedBox(
+                  height: 15,
                 ),
-                const Text(
-                  'Other exercises',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                ),
-                const SizedBox(height: 10),
                 Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16, top: 20,),
-                  child: FutureBuilder<List<WorkoutModel>>(
-                    future: GetAllWorkout().getAllWorkout(),
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+                  child: FutureBuilder<List<ProgramModel>>(
+                    future: GetAllPrograms().getAllPrograms(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Padding(
@@ -57,13 +54,16 @@ class ExerciseTr extends StatelessWidget {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       } else if (snapshot.hasData) {
                         Future.delayed(const Duration(seconds: 2));
-                        List<WorkoutModel> day = snapshot.data!;
+                        List<ProgramModel> program = snapshot.data!;
                         return ListView.builder(
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(),
-                          itemCount: day.length,
+                          itemCount: program.length,
                           itemBuilder: (context, index) {
-                            return CustomWorkoutCardU(workout: day[index]);
+                            return CustomProgramSelect(
+                              program: program[index],
+                              user: widget.user,
+                            );
                           },
                         );
                       } else {

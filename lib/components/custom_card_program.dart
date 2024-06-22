@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/screens/doctors/programs/create_program.dart';
+import 'package:graduate/screens/doctors/show_workouts/create_workout.dart';
 
 // ignore: must_be_immutable
 class CustomCardProgram extends StatefulWidget {

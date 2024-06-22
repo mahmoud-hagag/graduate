@@ -1,52 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/models/day_model.dart';
 import 'package:graduate/models/workout_model.dart';
-import 'package:graduate/screens/doctors/show_workouts/get_all_workouts.dart';
 import 'package:graduate/screens/users/show_workouts/custom_workout_card.dart';
+import 'package:graduate/screens/users/show_workouts/get_day_workouts.dart';
 
-class ExerciseTr extends StatelessWidget {
-  const ExerciseTr({super.key});
+// ignore: must_be_immutable
+class ShowWorkouts extends StatefulWidget {
+  ShowWorkouts({super.key, required this.program});
 
+  DayModel program;
+  @override
+  State<ShowWorkouts> createState() => _ShowWorkoutsState();
+}
+
+class _ShowWorkoutsState extends State<ShowWorkouts> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.only(top: 20, right: 8),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Header(
-                  'exercises',
+                  'Workouts day',
                   rightSide: IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: const Icon(
-                      size: 35,
-                      Icons.arrow_forward_ios_outlined,
-                      color: baseColor,
-                    ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  icon: const Icon(
+                    size: 35,
+                    Icons.arrow_forward_ios_outlined,
+                    color: baseColor,
                   ),
                 ),
-                const SizedBox(height: 50),
-                const Divider(
-                  color: Colors.grey,
-                  thickness: 1.5,
                 ),
-                const Text(
-                  'Other exercises',
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
+                const SizedBox(
+                  height: 15,
                 ),
-                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.only(left: 16, right: 16, top: 20,),
                   child: FutureBuilder<List<WorkoutModel>>(
-                    future: GetAllWorkout().getAllWorkout(),
+                    future: GetWorkoutDay().getWorkoutDay(widget.program.id),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Padding(

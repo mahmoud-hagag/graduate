@@ -7,7 +7,7 @@ import 'package:graduate/components/header.dart';
 import 'package:graduate/components/text_field.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/constants/variables.dart';
-import 'package:graduate/screens/doctors/programs/create_program.dart';
+import 'package:graduate/screens/doctors/show_workouts/create_workout.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/services/cache_helper.dart';
 

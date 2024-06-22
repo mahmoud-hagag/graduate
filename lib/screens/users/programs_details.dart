@@ -12,7 +12,7 @@ class ProgramsDetails extends StatefulWidget {
 
 class _ProgramsDetailsState extends State<ProgramsDetails> {
   late List<DropdownMenuEntry<dynamic>> dropdownMenuEntries;
-  TextEditingController week = TextEditingController();
+  TextEditingController day = TextEditingController();
   bool isSelectedG = true;
   @override
   Widget build(BuildContext context) {
@@ -50,13 +50,13 @@ class _ProgramsDetailsState extends State<ProgramsDetails> {
                         Color.fromARGB(255, 120, 66, 3)),
                     elevation: MaterialStatePropertyAll(6),
                   ),
-                  hintText: "week",
-                  controller: week,
+                  hintText: "day",
+                  controller: day,
                   errorText: !isSelectedG ? 'choose!!' : null,
                   onSelected: (value) {
                     setState(() {
                       isSelectedG = true;
-                      week.text = value.toString();
+                      day.text = value.toString();
                     });
                   },
                   textStyle: const TextStyle(

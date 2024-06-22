@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graduate/components/custom_page_view.dart';
 import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/user_photo.dart';
-import 'package:graduate/constants/colors.dart';
 import 'package:graduate/screens/users/programs.dart';
+import 'package:graduate/screens/users/show_doctors/show_doctors.dart';
 import 'package:graduate/screens/users/tab_bar_trainee.dart';
 
 class HomeTr extends StatefulWidget {
@@ -56,28 +56,6 @@ class _HomeTrState extends State<HomeTr> {
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('overall progress:'),
-                    Text('70%'),
-                  ],
-                ),
-                Container(
-                  padding: const EdgeInsets.all(12.0),
-                  child: const Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      LinearProgressIndicator(
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                        minHeight: 20,
-                        backgroundColor: backGround,
-                        valueColor: AlwaysStoppedAnimation<Color>(baseColor),
-                        value: .7,
-                      ),
-                    ],
-                  ),
                 ),
                 Card(
                   elevation: .7,
@@ -233,14 +211,10 @@ class _HomeTrState extends State<HomeTr> {
                               padding: const EdgeInsets.only(right: 16.0),
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                      builder: (context) => NavBarTR(
-                                        currentIndex: 3,
-                                      ),
-                                    ),
-                                    (route) => false,
-                                  );
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ViewAllDoctors(),
+                                  ));
                                 },
                                 child: const SizedBox(
                                   width: 50,
