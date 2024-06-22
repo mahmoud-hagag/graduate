@@ -3,6 +3,7 @@ import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
+import 'package:graduate/screens/chats/home_doctor.dart';
 import 'package:graduate/screens/doctors/create_attach.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/screens/doctors/view_users/view_patients.dart';
@@ -36,17 +37,15 @@ class _HomeDoState extends State<HomeDo> {
                     ),
                     GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
+                      Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => NavBarDo(
-                            currentIndex: 4,
-                          ),
+                          builder: (context) => const HomeChatDoctor()
                         ),
-                        (route) => false,
                       );
                     },
                     child: UserPhoto(
                       isDoctor: true,
+                      ischat: true,
                     ),
                   ),
                   ],

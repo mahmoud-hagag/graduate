@@ -6,7 +6,7 @@ import 'package:graduate/components/setting_menu.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/constants/variables.dart';
-import 'package:graduate/screens/chats/home.dart';
+import 'package:graduate/screens/chats/home_doctor.dart';
 import 'package:graduate/screens/doctors/helps.dart';
 import 'package:graduate/screens/doctors/tab_bar.dart';
 import 'package:graduate/services/cache_helper.dart';
@@ -20,6 +20,56 @@ class Setting extends StatefulWidget {
 
 class _SettingState extends State<Setting> {
   bool isLoading = false;
+
+  void viewProfile() async {
+    setState(() {});
+    try {
+      uId = CacheHelper.getData(key: 'uId');
+      var response = await Dio().post(
+        'http://10.0.2.2:8000/api/auth/doctor/doctorProfile',
+        options: Options(
+          headers: {'Authorization': 'Bearer $uId'},
+        ),
+        data: {},
+      );
+      if (response.data["status"]) {
+        // ignore: use_build_context_synchronously
+        AwesomeDialog(
+            context: context,
+            dialogType: DialogType.infoReverse,
+            animType: AnimType.rightSlide,
+            title:
+                "First Name: ${response.data['doctor']['firstName']}\n\nLast Name: ${response.data['doctor']['lastName']}\n\nPhone: 0${response.data['doctor']['mobile']}\n\nGender: ${response.data['doctor']['gender']}",
+            desc:
+                '\nCreated at: ${response.data['doctor']['created_at'].toString().substring(0, 10)}\nto back press anywhere or press ok',
+            btnOk: Center(
+              child: TextButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(baseColor)),
+                child: const Text(
+                  'Ok',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            )).show();
+      } else if (!response.data["status"]) {
+        // ignore: use_build_context_synchronously
+        AwesomeDialog(
+          context: context,
+          dialogType: DialogType.error,
+          animType: AnimType.rightSlide,
+          title: 'Invalid Info ☠️',
+          desc: response.data["error"],
+        ).show();
+      }
+    } catch (e) {
+      // ignore: avoid_print
+      print("Exception $e");
+    }
+  }
 
   Future<void> logoutDoctor() async {
     isLoading = true;
@@ -104,6 +154,7 @@ class _SettingState extends State<Setting> {
                           },
                           child: UserPhoto(
                             isDoctor: true,
+                            ischat: false,
                           ),
                         ),
                       ),
@@ -113,15 +164,8 @@ class _SettingState extends State<Setting> {
                       SettingMenuWidget(
                         title: "Account",
                         icon: Icons.person_4,
-                        onPress: () {
-                          Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                              builder: (context) => NavBarDo(
-                                currentIndex: 4,
-                              ),
-                            ),
-                            (route) => false,
-                          );
+                        onPress: () async{
+                          viewProfile();
                         },
                       ),
                       const SizedBox(
@@ -168,7 +212,7 @@ class _SettingState extends State<Setting> {
                         icon: Icons.send_rounded,
                         onPress: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => const HomeChat(),
+                            builder: (context) => const HomeChatDoctor(),
                           ));
                         },
                       ),
@@ -190,7 +234,8 @@ class _SettingState extends State<Setting> {
                       GestureDetector(
                         onDoubleTap: () {
                           CacheHelper.removeData(key: 'uId');
-                          Navigator.pushNamedAndRemoveUntil(context, '/', (_) => false);
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '/', (_) => false);
                         },
                         child: SettingMenuWidget(
                           title: "Logout",

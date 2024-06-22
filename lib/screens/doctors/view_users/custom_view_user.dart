@@ -42,6 +42,7 @@ class _CustomViewCardState extends State<CustomViewCard> {
                     ),
                     UserPhoto(
                       isDoctor: false,
+                                ischat: false,
                     )
                   ],
                 ),

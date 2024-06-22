@@ -61,6 +61,30 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
           iD = CacheHelper.getDataId(key: 'id');
           uId = CacheHelper.getData(key: 'uId');
           isD = CacheHelper.getDataD(isDo: 'isD');
+          // if (response["data"]['need_mobile_verified_at']) {
+          //   // ignore: use_build_context_synchronously
+          //   AwesomeDialog(
+          //   context: context,
+          //   dialogType: DialogType.success,
+          //   animType: AnimType.rightSlide,
+          //   title: 'Success 👀',
+          //   desc: 'needs to verify',
+          //   btnOk: Center(
+          //     child: TextButton(
+          //       style: const ButtonStyle(
+          //           backgroundColor: MaterialStatePropertyAll(baseColor)),
+          //       child: const Text(
+          //         'Ok',
+          //         style: TextStyle(color: Colors.white),
+          //       ),
+          //       onPressed: () {
+          //         // ignore: use_build_context_synchronously
+          //         Navigator.of(context)
+          //             .pushNamedAndRemoveUntil('/NavTr', (route) => false);
+          //       },
+          //     ),
+          //   )).show();
+          // }
         // ignore: use_build_context_synchronously
         AwesomeDialog(
             context: context,

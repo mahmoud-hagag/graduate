@@ -32,7 +32,6 @@ class _CreateProgramsState extends State<CreatePrograms> {
           },
         );
         if (response.data["status"]) {
-          program = ProgramModel.fromJson(response.data["program"]);
           // ignore: use_build_context_synchronously
           AwesomeDialog(
               context: context,
@@ -58,6 +57,7 @@ class _CreateProgramsState extends State<CreatePrograms> {
                   },
                 ),
               )).show();
+          program = ProgramModel.fromJson(response.data["program"]);
         } else if (!response.data["status"]) {
           // ignore: use_build_context_synchronously
           AwesomeDialog(

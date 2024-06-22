@@ -41,8 +41,8 @@ class _ProgressState extends State<Progress> {
         100,
       ),
       _ChartData(
-        'week 7',
-        150,
+        'week 6',
+        100,
       ),
     ];
     _tooltip = TooltipBehavior(enable: true);

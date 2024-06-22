@@ -41,7 +41,7 @@ class _CustomViewCardDoctorNotFollowState extends State<CustomViewCardDoctorNotF
                       ),
                     ),
                     SizedBox(
-                      child: UserPhoto(isDoctor: true),
+                      child: UserPhoto(isDoctor: true,ischat: false),
                     ),
                   ],
                 ),

@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:graduate/chats_user/home_user.dart';
 import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/header.dart';
-import 'package:graduate/components/search_text_doctor.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/models/doctor_model.dart';
 import 'package:graduate/screens/doctors/view_users/get_all_doctors.dart';
+import 'package:graduate/screens/users/show_doctors/custom_view_doctor.dart';
 import 'package:graduate/screens/users/show_doctors/show_doctors.dart';
-import 'package:graduate/screens/users/tab_bar_trainee.dart';
 
 class SearchTr extends StatefulWidget {
   const SearchTr({super.key});
@@ -67,20 +67,18 @@ class _SearchTrState extends State<SearchTr> {
               Header(
                 'Search',
                 rightSide: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                        builder: (context) => NavBarTR(
-                          currentIndex: 4,
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const HomeChatUser()
                         ),
-                      ),
-                      (route) => false,
-                    );
-                  },
-                  child: UserPhoto(
-                    isDoctor: false,
+                      );
+                    },
+                    child: UserPhoto(
+                      isDoctor: true,
+                      ischat: true,
+                    ),
                   ),
-                ),
               ),
               const SizedBox(
                 height: 30,
@@ -124,15 +122,35 @@ class _SearchTrState extends State<SearchTr> {
                     ? const Center(child: CircularProgressIndicator())
                     : searchResults.isEmpty && query.isNotEmpty
                         ? const Center(child: Text('No results found'))
-                        : ListView.builder(
-                            itemCount: searchResults.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: SearchTextDoctor(
-                                    doctor: searchResults[index]),
-                              );
-                            },
-                          ),
+                        : Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+                  child: FutureBuilder<List<DoctorModel>>(
+                    future: GetAllDoctors().getAllDoctors(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Padding(
+                          padding: EdgeInsets.only(bottom: 600),
+                          child: Center(child: CircularProgressIndicator()),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      } else if (snapshot.hasData) {
+                        Future.delayed(const Duration(seconds: 2));
+                        List<DoctorModel> users = searchResults;
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: searchResults.length,
+                          itemBuilder: (context, index) {
+                            return CustomViewCardDoctor(user: users[index]);
+                          },
+                        );
+                      } else {
+                        return const Center(child: Text('No patients found'));
+                      }
+                    },
+                  ),
+                ),
               ),
             ],
           ),

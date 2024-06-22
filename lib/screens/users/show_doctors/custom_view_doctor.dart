@@ -1,6 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:graduate/chats_user/home_user.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/models/doctor_model.dart';
@@ -66,6 +67,33 @@ class _CustomViewCardDoctorState extends State<CustomViewCardDoctor> {
     setState(() {});
   }
 
+  createChat() async {
+    int uId = CacheHelper.getDataId(key: 'id');
+    try {
+      var response = await Dio().post('http://10.0.2.2:8000/api/chats', data: {
+        'doctor_id': widget.user.id,
+        'user_id': uId,
+      });
+      if (response.data["status"]) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+            const HomeChatUser()
+        ));
+      } else if (!response.data['status']) {
+        // ignore: use_build_context_synchronously
+        AwesomeDialog(
+            context: context,
+            dialogType: DialogType.error,
+            animType: AnimType.rightSlide,
+            title: 'Invalid Info ☠️',
+            desc: response.data["msg"],
+          ).show();
+      }
+    } catch (_) {}
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -107,20 +135,23 @@ class _CustomViewCardDoctorState extends State<CustomViewCardDoctor> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.only(left: 20, right: 15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     SizedBox(
-                      child: UserPhoto(isDoctor: true),
+                      child: UserPhoto(isDoctor: true, ischat: false),
                     ),
-                    const Text(
-                      'follow',
-                      style: TextStyle(
-                          fontSize: 18,
-                          color: baseColor,
-                          fontWeight: FontWeight.bold),
-                    ),
+                    IconButton(
+                      onPressed: () async {
+                        await createChat();
+                      },
+                      icon: const Icon(
+                        Icons.messenger_outline_rounded,
+                        size: 40,
+                        color: baseColor,
+                      ),
+                    )
                   ],
                 ),
               ),

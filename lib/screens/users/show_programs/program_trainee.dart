@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduate/chats_user/home_user.dart';
 import 'package:graduate/components/custom_button.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
@@ -8,7 +9,6 @@ import 'package:graduate/screens/users/exercise.dart';
 import 'package:graduate/screens/users/programs.dart';
 import 'package:graduate/screens/users/show_programs/custom_program_user_card.dart';
 import 'package:graduate/screens/users/show_programs/get_user_programs.dart';
-import 'package:graduate/screens/users/tab_bar_trainee.dart';
 import 'package:graduate/services/cache_helper.dart';
 
 class ProgramTr extends StatefulWidget {
@@ -38,17 +38,15 @@ class _ProgramTrState extends State<ProgramTr> {
                   'Programs',
                   rightSide: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
+                      Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => NavBarTR(
-                            currentIndex: 4,
-                          ),
+                          builder: (context) => const HomeChatUser()
                         ),
-                        (route) => false,
                       );
                     },
                     child: UserPhoto(
-                      isDoctor: false,
+                      isDoctor: true,
+                      ischat: true,
                     ),
                   ),
                 ),

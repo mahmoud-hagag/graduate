@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/user_photo.dart';
@@ -40,6 +39,7 @@ class _ProgramsState extends State<Programs> {
                     },
                     child: UserPhoto(
                       isDoctor: true,
+                                ischat: false,
                     ),
                   ),
                 ),

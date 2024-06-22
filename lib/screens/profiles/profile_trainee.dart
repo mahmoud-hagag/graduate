@@ -24,7 +24,6 @@ class _ProfileTrState extends State<ProfileTr> {
         options: Options(
           headers: {'Authorization': 'Bearer $uId'},
         ),
-        data: {},
       );
       if (response.data["status"]) {
         
@@ -34,7 +33,7 @@ class _ProfileTrState extends State<ProfileTr> {
             dialogType: DialogType.infoReverse,
             animType: AnimType.rightSlide,
             title:
-                "First Name: ${response.data['user']['firstName']}\n\nLast Name: ${response.data['user']['lastName']}\n\nPhone: ${response.data['user']['phone']}\n\nGender: ${response.data['user']['gender']}\n\nDisability: ${response.data['user']['disability']}",
+                "First Name: ${response.data['user']['firstName']}\n\nLast Name: ${response.data['user']['lastName']}\n\nPhone: ${response.data['user']['mobile']}\n\nGender: ${response.data['user']['gender']}\n\nDisability: ${response.data['user']['disability']}",
             desc:
                 '\nCreated at: ${response.data['user']['created_at'].toString().substring(0, 10)}\nto back press anywhere or press ok',
             btnOk: Center(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graduate/chats_user/home_user.dart';
 import 'package:graduate/components/custom_page_view.dart';
 import 'package:graduate/components/logo.dart';
 import 'package:graduate/components/user_photo.dart';
@@ -34,17 +35,15 @@ class _HomeTrState extends State<HomeTr> {
                     ),
                     GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushAndRemoveUntil(
+                      Navigator.of(context).push(
                         MaterialPageRoute(
-                          builder: (context) => NavBarTR(
-                            currentIndex: 4,
-                          ),
+                          builder: (context) => const HomeChatUser()
                         ),
-                        (route) => false,
                       );
                     },
                     child: UserPhoto(
-                      isDoctor: false,
+                      isDoctor: true,
+                      ischat: true,
                     ),
                   ),
                   ],

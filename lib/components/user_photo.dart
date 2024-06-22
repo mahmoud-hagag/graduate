@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class UserPhoto extends StatelessWidget {
- UserPhoto({super.key,required this.isDoctor});
+  UserPhoto({super.key, required this.isDoctor,required this.ischat});
   bool isDoctor;
+  bool ischat;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,10 +13,10 @@ class UserPhoto extends StatelessWidget {
       padding: const EdgeInsets.all(10.0),
       margin: const EdgeInsets.only(right: 20.0),
       decoration: BoxDecoration(
-        image:  DecorationImage(
+        image: DecorationImage(
           image: AssetImage(
-            isDoctor?
-            'assets/doctor.png':'assets/user.jpg',
+            ischat?'assets/chat.png':
+            isDoctor ? 'assets/doctor.png' : 'assets/user.jpg',
           ),
           fit: BoxFit.fill,
         ),

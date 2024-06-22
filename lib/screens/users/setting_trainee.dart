@@ -1,12 +1,12 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:graduate/chats_user/home_user.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/components/setting_menu.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/constants/variables.dart';
-import 'package:graduate/screens/chats/home.dart';
 import 'package:graduate/screens/doctors/helps.dart';
 import 'package:graduate/screens/users/tab_bar_trainee.dart';
 import 'package:graduate/services/cache_helper.dart';
@@ -151,6 +151,7 @@ class _SettingTrState extends State<SettingTr> {
                     },
                     child: UserPhoto(
                       isDoctor: false,
+                      ischat: false,
                     ),
                   ),
                 ),
@@ -208,7 +209,7 @@ class _SettingTrState extends State<SettingTr> {
                   icon: Icons.send_rounded,
                   onPress: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const HomeChat(),
+                      builder: (context) => const HomeChatUser(),
                     ));
                   },
                 ),

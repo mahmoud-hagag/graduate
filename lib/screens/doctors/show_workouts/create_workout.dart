@@ -150,11 +150,65 @@ class _CreateWorkoutState extends State<CreateWorkout> {
                 const SizedBox(
                   height: 15,
                 ),
-                CustomTextField(
-                  label: 'Enter a link of video',
-                  controller: link,
-                  icon: null,
-                  validator: null,
+                Row(
+                  children: [
+                    DropdownMenu(
+                        inputDecorationTheme: const InputDecorationTheme(
+                          fillColor: Colors.transparent,
+                          filled: false,
+                          enabledBorder: InputBorder.none,
+                        ),
+                        width: 350,
+                        menuStyle: const MenuStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                              Color.fromARGB(255, 120, 66, 3)),
+                          elevation: MaterialStatePropertyAll(6),
+                        ),
+                        controller: link,
+                        errorText: !isSelectedM ? 'choose!!' : null,
+                        hintText: "Linkes",
+                        onSelected: (value) {
+                          isSelectedM = true;
+                          link.text = value.toString();
+                        },
+                        textStyle: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        dropdownMenuEntries: dropdownMenuEntries = [
+                          const DropdownMenuEntry(
+                              value: 'butterfly', label: "butterfly"),
+                          const DropdownMenuEntry(
+                              value: 'shoulder_1', label: "shoulder 1"),
+                          const DropdownMenuEntry(
+                              value: 'shoulder_2', label: "shoulder 2"),
+                          const DropdownMenuEntry(
+                              value: 'leg_1', label: "leg 1"),
+                          const DropdownMenuEntry(
+                              value: 'leg_2', label: "leg 2"),
+                          const DropdownMenuEntry(
+                              value: 'leg_3', label: "leg 3"),
+                          const DropdownMenuEntry(
+                              value: 'leg_4', label: "leg 4"),
+                          const DropdownMenuEntry(
+                              value: 'upper_1', label: "upper 1"),
+                          const DropdownMenuEntry(
+                              value: 'side_blank_1', label: "side blank"),
+                          const DropdownMenuEntry(
+                              value: 'push_ups_1', label: "push up 1"),
+                          const DropdownMenuEntry(
+                              value: 'push_ups_2', label: "push up 2"),
+                          const DropdownMenuEntry(
+                              value: 'adv_abs_2', label: "decline"),
+                          const DropdownMenuEntry(
+                              value: 'abs_3', label: "cranch"),
+                          const DropdownMenuEntry(
+                              value: 'chest_2', label: "chest press"),
+                          const DropdownMenuEntry(
+                              value: 'chest_1', label: "floor press"),
+                        ]),
+                  ],
                 ),
                 const SizedBox(
                   height: 20,

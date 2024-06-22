@@ -44,7 +44,7 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
       if (response["status"]) {
         CacheHelper.setData(
               key: 'uId',
-              value: response["token"]['original']['access_token'],
+              value: response['data']["token"]['original']['access_token'],
             );
             CacheHelper.setDataD(
               isDo: 'isD',
@@ -52,7 +52,7 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
             );
             CacheHelper.setDataId(
               key: 'id',
-              value: response["token"]['original']['user']['id'],
+              value: response['data']["token"]['original']['user']['id'],
             );
           iD = CacheHelper.getDataId(key: 'id');
           uId = CacheHelper.getData(key: 'uId');
