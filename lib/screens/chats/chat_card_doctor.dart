@@ -50,7 +50,7 @@ class _ChatCardState extends State<ChatCardDoctor> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: UserPhoto(
-                          isDoctor: true,
+                          isDoctor: false,
                           ischat: false,
                         ),
                       ),

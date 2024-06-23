@@ -7,7 +7,7 @@ import 'package:graduate/components/setting_menu.dart';
 import 'package:graduate/components/user_photo.dart';
 import 'package:graduate/constants/colors.dart';
 import 'package:graduate/constants/variables.dart';
-import 'package:graduate/screens/doctors/helps.dart';
+import 'package:graduate/screens/users/helps_trainee.dart';
 import 'package:graduate/screens/users/tab_bar_trainee.dart';
 import 'package:graduate/services/cache_helper.dart';
 
@@ -93,7 +93,7 @@ class _SettingTrState extends State<SettingTr> {
             dialogType: DialogType.success,
             animType: AnimType.rightSlide,
             title: 'Success 👀',
-            desc: 'you are login successfuly now',
+            desc: 'you are logout successfuly now',
             btnOk: Center(
               child: TextButton(
                 style: const ButtonStyle(
@@ -185,7 +185,7 @@ class _SettingTrState extends State<SettingTr> {
                   icon: Icons.question_mark_rounded,
                   onPress: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const Helps(),
+                      builder: (context) => const HelpsTr(),
                     ));
                   },
                 ),

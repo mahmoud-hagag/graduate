@@ -95,7 +95,7 @@ class _SplachScreenState extends State<SplachScreen> {
           const Padding(
             padding: EdgeInsets.only(top: 50, left: 10),
             child: Text(
-              'Welcome to our application\n\n                  S3ood',
+              'Welcome to our app\n\n                  So3od',
               style: TextStyle(
                 fontSize: 30,
                 color: Colors.white,

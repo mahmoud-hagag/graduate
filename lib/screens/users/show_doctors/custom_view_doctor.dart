@@ -89,6 +89,11 @@ class _CustomViewCardDoctorState extends State<CustomViewCardDoctor> {
             title: 'Invalid Info ☠️',
             desc: response.data["msg"],
           ).show();
+          // ignore: use_build_context_synchronously
+          Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) =>
+            const HomeChatUser()
+        ));
       }
     } catch (_) {}
     setState(() {});

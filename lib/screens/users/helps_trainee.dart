@@ -32,7 +32,7 @@ class HelpsTr extends StatelessWidget {
               const Padding(
                 padding: EdgeInsets.only(left: 15.0),
                 child: Text(
-                  'This app helps you as a doctor to help the patients and contact with them .\n\n you can add programs to a patient \n\n you can watch your patient progress ',
+                  'This app helps you as a trainee to follow doctors and contact with them .\n\n you can see programs \n\n you can watch your progress ',
                   style: TextStyle(fontSize: 20),
                 ),
               )

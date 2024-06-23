@@ -40,9 +40,9 @@ class _CaloriesState extends State<Calories> {
                 const SizedBox(
                   height: 50,
                 ),
-                 Column(
+                 const Column(
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       height: 200,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -72,77 +72,42 @@ class _CaloriesState extends State<Calories> {
                         ],
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 70,
                     ),
-                    const Text(
+                    Text(
                       '🔥Total Calories burned',
                       style: TextStyle(
                         fontSize: 24,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       height: 10,
                     ),
-                    const Text(
+                    Text(
                       'These numbers are based on distance and weight',
                       style: TextStyle(
                         fontSize: 14,
                       ),
                     ),
-                    Row(
-                      children: [
-                        DropdownMenu(
-                        inputDecorationTheme: const InputDecorationTheme(
-                          fillColor: Colors.transparent,
-                          filled: false,
-                          enabledBorder: InputBorder.none,
-                        ),
-                        menuStyle: const MenuStyle(
-                          backgroundColor: MaterialStatePropertyAll(
-                              Color.fromARGB(255, 120, 66, 3)),
-                          elevation: MaterialStatePropertyAll(6),
-                        ),
-                        hintText: "week",
-                        controller: week,
-                        errorText: !isSelectedG ? 'choose!!' : null,
-                        onSelected: (value) {
-                          setState(() {
-                            isSelectedG = true;
-                            week.text = value.toString();
-                          });
-                        },
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        dropdownMenuEntries: dropdownMenuEntries = [
-                          const DropdownMenuEntry(
-                              value: 'this week', label: "this week"),
-                          const DropdownMenuEntry(
-                              value: 'next week', label: "next week"),
-                          const DropdownMenuEntry(
-                              value: 'previos week', label: "previos week"),
-                        ]),
-                      ],
+                    SizedBox(
+                      height: 40,
                     ),
-                
-                    const ProgramCard(
+                    ProgramCard(
                       day: 'monday',
                       name: 'Deadlift',
                       repsvalue: 3,
                       value: .3,
                     ),
                 
-                    const ProgramCard(
+                    ProgramCard(
                       day: 'monday',
                       name: 'Deadlift',
                       repsvalue: 3,
                       value: .3,
                     ),
                 
-                    const ProgramCard(
+                    ProgramCard(
                       day: 'monday',
                       name: 'Deadlift',
                       repsvalue: 3,

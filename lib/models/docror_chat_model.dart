@@ -2,8 +2,8 @@ import 'package:graduate/models/user_model.dart';
 
 class DoctorChatModel {
   final int id;
-  final String userId;
-  final String doctorId;
+  final int userId;
+  final int doctorId;
   UserModel user;
   DoctorChatModel(
       {required this.userId, required this.doctorId, required this.id,required this.user});

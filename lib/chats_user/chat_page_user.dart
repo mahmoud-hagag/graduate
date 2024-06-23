@@ -99,8 +99,8 @@ class _ChatPageStateUser extends State<ChatPageUser> {
                     padding:
                         const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: FutureBuilder<List<MessageModel>>(
-                      future: GetChatMessages()
-                          .getChatMessages(widget.userChat.doctorId),
+                      future:
+                          GetChatMessages().getChatMessages(widget.userChat.id),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -123,16 +123,16 @@ class _ChatPageStateUser extends State<ChatPageUser> {
                             physics: const BouncingScrollPhysics(),
                             itemCount: userChats.length,
                             itemBuilder: (context, index) {
-                              return widget.userChat.userId == iD
+                              return userChats[index].senderId == iD
                                   ? MessageRight(
                                       message: userChats[index].content,
                                     )
-                                  : MessageLefi(
+                                  : MessageLeft(
                                       message: userChats[index].content);
                             },
                           );
                         } else {
-                          return const Center(child: Text('No patients found'));
+                          return const Center(child: Text('No messages found'));
                         }
                       },
                     ),
@@ -155,7 +155,7 @@ class _ChatPageStateUser extends State<ChatPageUser> {
                           }
                         },
                         decoration: const InputDecoration.collapsed(
-                            hintText: "Type your message"),
+                            hintText: "  Type your message"),
                       )),
                       IconButton(
                           icon: const Icon(Icons.send),

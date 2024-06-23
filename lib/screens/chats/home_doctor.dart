@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:graduate/chats_user/chat_card_user.dart';
-import 'package:graduate/chats_user/get_user_chats.dart';
 import 'package:graduate/components/header.dart';
 import 'package:graduate/constants/colors.dart';
-import 'package:graduate/models/user_chat_model.dart';
+import 'package:graduate/models/docror_chat_model.dart';
+import 'package:graduate/screens/chats/chat_card_doctor.dart';
+import 'package:graduate/screens/chats/get_doctor_chats.dart';
 import 'package:graduate/services/cache_helper.dart';
 
 class HomeChatDoctor extends StatefulWidget {
@@ -41,8 +41,8 @@ class _HomeChatUserState extends State<HomeChatDoctor> {
                 const SizedBox(height: 20),
                 Padding(
                   padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-                  child: FutureBuilder<List<UserChatModel>>(
-                    future: GetUserChats().getUserChats(iD),
+                  child: FutureBuilder<List<DoctorChatModel>>(
+                    future: GetDoctorChats().getDoctorChats(iD),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Padding(
@@ -53,13 +53,13 @@ class _HomeChatUserState extends State<HomeChatDoctor> {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       } else if (snapshot.hasData) {
                         Future.delayed(const Duration(seconds: 2));
-                        List<UserChatModel> userChats = snapshot.data!;
+                        List<DoctorChatModel> userChats = snapshot.data!;
                         return ListView.builder(
                           shrinkWrap: true,
                           physics: const BouncingScrollPhysics(),
                           itemCount: userChats.length,
                           itemBuilder: (context, index) {
-                            return ChatCardUser(doctor: userChats[index],);
+                            return ChatCardDoctor(doctor: userChats[index],);
                           },
                         );
                       } else {

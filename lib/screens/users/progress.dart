@@ -17,32 +17,24 @@ class _ProgressState extends State<Progress> {
   void initState() {
     data = [
       _ChartData(
-        'week 1',
-        215,
+        'day 1',
+        90,
       ),
       _ChartData(
-        'week 2',
+        'day 2',
         175,
       ),
       _ChartData(
-        'week 3',
+        'day 3',
         150,
       ),
       _ChartData(
-        'week 4',
+        'day 4',
         200,
       ),
       _ChartData(
-        'week 5',
-        75,
-      ),
-      _ChartData(
-        'week 6',
-        100,
-      ),
-      _ChartData(
-        'week 6',
-        100,
+        'day 5',
+        227,
       ),
     ];
     _tooltip = TooltipBehavior(enable: true);

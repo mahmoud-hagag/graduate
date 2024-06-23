@@ -55,7 +55,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             right: 10,
           ),
           child: IconButton(
-            color: Colors.black,
+            color: Colors.grey,
             icon: Icon(widget.icon),
             onPressed: () {
               setState(() {

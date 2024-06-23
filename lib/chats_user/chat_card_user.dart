@@ -5,7 +5,7 @@ import 'package:graduate/models/user_chat_model.dart';
 
 // ignore: must_be_immutable
 class ChatCardUser extends StatefulWidget {
-  ChatCardUser({super.key,required this.doctor});
+  ChatCardUser({super.key, required this.doctor});
 
   UserChatModel doctor;
 
@@ -14,15 +14,15 @@ class ChatCardUser extends StatefulWidget {
 }
 
 class _ChatCardState extends State<ChatCardUser> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: GestureDetector(
-        onTap: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChatPageUser(userChat: widget.doctor),));
-
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => ChatPageUser(userChat: widget.doctor),
+          ));
         },
         child: Card(
           elevation: 1.5,

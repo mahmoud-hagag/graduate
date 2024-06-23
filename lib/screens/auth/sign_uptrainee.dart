@@ -91,7 +91,7 @@ class _SignUpTraineeState extends State<SignUpTrainee> {
             dialogType: DialogType.success,
             animType: AnimType.rightSlide,
             title: 'Success 👀',
-            desc: 'you are login successfuly now',
+            desc: response["msg"],
             btnOk: Center(
               child: TextButton(
                 style: const ButtonStyle(

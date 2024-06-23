@@ -63,7 +63,7 @@ class _SignUPDoctorState extends State<SignUPDoctor> {
             dialogType: DialogType.success,
             animType: AnimType.rightSlide,
             title: 'Success 👀',
-            desc: 'you are Sign up successfuly now',
+            desc: response["msg"],
             btnOk: Center(
               child: TextButton(
                 style: const ButtonStyle(

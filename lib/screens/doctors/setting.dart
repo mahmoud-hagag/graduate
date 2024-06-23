@@ -94,7 +94,7 @@ class _SettingState extends State<Setting> {
             dialogType: DialogType.success,
             animType: AnimType.rightSlide,
             title: 'Success 👀',
-            desc: 'you are login successfuly now',
+            desc: 'you are logout successfuly now',
             btnOk: Center(
               child: TextButton(
                 style: const ButtonStyle(

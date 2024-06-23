@@ -31,8 +31,8 @@ class _ChatPageStateDoctor extends State<ChatPageDoctor> {
         'http://10.0.2.2:8000/api/messages/send',
         data: {
           'chat_id': widget.userChat.id,
-          'sender_id': widget.userChat.userId,
-          'receiver_id': widget.userChat.doctorId,
+          'sender_id': widget.userChat.doctorId,
+          'receiver_id': widget.userChat.userId,
           'content': message.text,
         },
         options: Options(
@@ -100,7 +100,7 @@ class _ChatPageStateDoctor extends State<ChatPageDoctor> {
                         const EdgeInsets.only(left: 16, right: 16, top: 20),
                     child: FutureBuilder<List<MessageModel>>(
                       future: GetChatMessages()
-                          .getChatMessages(widget.userChat.user.id),
+                          .getChatMessages(widget.userChat.id),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
@@ -123,16 +123,16 @@ class _ChatPageStateDoctor extends State<ChatPageDoctor> {
                             physics: const BouncingScrollPhysics(),
                             itemCount: userChats.length,
                             itemBuilder: (context, index) {
-                              return widget.userChat.userId == iD
+                              return (userChats[index].senderId) == iD
                                   ? MessageRight(
                                       message: userChats[index].content,
                                     )
-                                  : MessageLefi(
+                                  : MessageLeft(
                                       message: userChats[index].content);
                             },
                           );
                         } else {
-                          return const Center(child: Text('No patients found'));
+                          return const Center(child: Text('No Messages found'));
                         }
                       },
                     ),
@@ -155,7 +155,7 @@ class _ChatPageStateDoctor extends State<ChatPageDoctor> {
                           }
                         },
                         decoration: const InputDecoration.collapsed(
-                            hintText: "Type your message"),
+                            hintText: "  Type your message"),
                       )),
                       IconButton(
                           icon: const Icon(Icons.send),
